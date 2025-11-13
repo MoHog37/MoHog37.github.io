@@ -1,41 +1,92 @@
 <!DOCTYPE html>
 <html lang="th">
   <head>
-    <title>iHAVEPHAI</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="responsive.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iHAVEPHAI</title>
+    <!-- ✅ ใช้ Tailwind CSS จาก CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
 
-  <body>
-    <header class="navbar">
-  <a class="logo" href="index.html">
-    <img src="iHavephai.png" alt="iHAVEPHAI" class="logo-image">
-  </a>
+  <body class="font-[Prompt] bg-gray-50">
 
-  <form class="search-bar" action="/search" method="get">
-    <input type="text" name="q" placeholder="ค้นหาสินค้า..." required>
-    <button type="submit">ค้นหา</button>
-  </form> 
-  
-  <nav>
-    <ul class="menu">
-      <li><a href="#" class="home-page">หน้าแรก</a></li>
-      <li><a href="#" class="promotion-page">โปรโมชั่น</a></li>
-      <li><a href="#" class="category-page">หมวดหมู่</a></li>
-      <li><a href="#" class="essay-page">บทความ</a></li>
-      <li><a href="#" class="about-page">เกี่ยวกับเรา</a></li>
-    </ul>
-  </nav>
+    <!-- 🔹 Navbar -->
+    <header class="sticky top-0 bg-white shadow-md">
+      <div class="flex items-center justify-between px-6 py-3">
+        
+        <!-- 🔸 โลโก้ -->
+        <a href="#" class="flex items-center space-x-2">
+          <img src="iHavephai.png" alt="iHAVEPHAI" class="w-10 md:w-12">
+          <span class="text-xl font-semibold text-green-600">iHAVEPHAI</span>
+        </a>
 
-  <div class="icons">
-    <a href="#">
-      <img src="https://cdn-icons-png.freepik.com/512/8801/8801434.png" alt="บัญชีผู้ใช้" class="acc-image"></a>
-    <a href="#">
-      <img src="https://media.istockphoto.com/id/898475764/vector/shopping-trolley-cart-icon-in-green-circle-vector.jpg?s=612x612&w=0&k=20&c=W_b90qFRpj_FyLyI19xWqB6EoNSuJYwMSN9nnKkE9Hk=" alt="ตะกร้าสินค้า" class="cart-image"></a>
-  </div>
-</header> 
+        <!-- 🔸 ปุ่ม Hamburger (มือถือ) -->
+        <button id="menu-btn" class="block md:hidden text-gray-600 focus:outline-none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
 
+        <!-- 🔸 เมนูหลัก (แสดงใน Desktop) -->
+        <nav class="hidden md:flex gap-6 text-gray-700 font-medium">
+          <a href="#" class="hover:text-green-600">หน้าแรก</a>
+          <a href="#" class="hover:text-green-600">โปรโมชั่น</a>
+          <a href="#" class="hover:text-green-600">หมวดหมู่</a>
+          <a href="#" class="hover:text-green-600">บทความ</a>
+          <a href="#" class="hover:text-green-600">เกี่ยวกับเรา</a>
+        </nav>
 
+        <!-- 🔸 ไอคอน -->
+        <div class="hidden md:flex space-x-3">
+          <img src="https://cdn-icons-png.freepik.com/512/8801/8801434.png"
+               class="w-7 hover:scale-110 transition"
+               alt="บัญชีผู้ใช้">
+          <img src="https://media.istockphoto.com/id/898475764/vector/shopping-trolley-cart-icon-in-green-circle-vector.jpg?s=612x612"
+               class="w-7 hover:scale-110 transition"
+               alt="ตะกร้าสินค้า">
+        </div>
+      </div>
 
+      <!-- 🔸 เมนูแบบพับเก็บ (มือถือ) -->
+      <nav id="mobile-menu" class="hidden flex-col bg-white text-gray-700 text-center md:hidden border-t">
+        <a href="#" class="py-2 hover:bg-green-50">หน้าแรก</a>
+        <a href="#" class="py-2 hover:bg-green-50">โปรโมชั่น</a>
+        <a href="#" class="py-2 hover:bg-green-50">หมวดหมู่</a>
+        <a href="#" class="py-2 hover:bg-green-50">บทความ</a>
+        <a href="#" class="py-2 hover:bg-green-50">เกี่ยวกับเรา</a>
+
+        <div class="flex justify-center gap-5 py-3 border-t">
+          <img src="https://cdn-icons-png.freepik.com/512/8801/8801434.png" class="w-6" alt="บัญชีผู้ใช้">
+          <img src="https://media.istockphoto.com/id/898475764/vector/shopping-trolley-cart-icon-in-green-circle-vector.jpg?s=612x612" class="w-6" alt="ตะกร้าสินค้า">
+        </div>
+      </nav>
+    </header>
+
+    <!-- 🔹 ช่องค้นหา (อยู่ใต้ Navbar) -->
+    <section class="px-6 py-4 bg-gray-100 flex justify-center">
+      <form class="flex items-center bg-white rounded-full px-3 py-1 w-full max-w-xl shadow-sm">
+        <input type="text" name="q" placeholder="ค้นหาสินค้า..." class="flex-1 bg-transparent outline-none px-2 py-1 text-gray-700" />
+        <button type="submit" class="bg-green-500 text-white px-5 py-1 rounded-full hover:bg-green-600">
+          ค้นหา
+        </button>
+      </form>
+    </section>
+
+    <!-- 🔹 เนื้อหาทดสอบ -->
+    <main class="p-6 text-center">
+      <h1 class="text-2xl font-semibold mb-4">ยินดีต้อนรับสู่ iHAVEPHAI</h1>
+      <p class="text-gray-600">ตัวอย่าง Navbar แบบ Responsive ด้วย Tailwind CSS</p>
+    </main>
+
+    <!-- 🔹 Script สำหรับเปิด/ปิดเมนู -->
+    <script>
+      const btn = document.getElementById('menu-btn');
+      const menu = document.getElementById('mobile-menu');
+      btn.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+      });
+    </script>
+
+  </body>
+</html>
