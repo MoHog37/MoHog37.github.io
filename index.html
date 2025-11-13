@@ -1,69 +1,55 @@
 <!DOCTYPE html>
 <html lang="th">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>iHAVEPHAI</title>
-    <!-- ✅ ใช้ Tailwind CSS จาก CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
 
   <body class="font-[Prompt] bg-gray-50">
 
     <!-- 🔹 Navbar -->
-    <header class="sticky top-0 bg-white shadow-md">
-      <div class="flex items-center justify-between px-10 py-3">
-        
-        <!-- 🔸 โลโก้ -->
-        <a href="#" class="flex items-center space-x-2">
-          <img src="iHavephai.png" alt="iHAVEPHAI" class="w-10 md:w-12">
+    <header class="sticky top-0 bg-white shadow-md z-50">
+      <div class="flex items-center justify-between px-6 py-3">
 
-        <!-- 🔸 ปุ่ม Hamburger (มือถือ) -->
-        <button id="menu-btn" class="block md:hidden text-gray-600 focus:outline-none">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+        <!-- 🔸 ปุ่ม Hamburger -->
+        <button id="menu-btn" class="block md:hidden text-gray-700 focus:outline-none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
 
-        <!-- 🔸 เมนูหลัก (แสดงใน Desktop) -->
+        <!-- 🔸 โลโก้ -->
+        <a href="#" class="flex items-center space-x-2">
+          <img src="iHavephai.png" alt="iHAVEPHAI" class="w-10 md:w-12">
+        </a>
+
+        <!-- 🔸 เมนูหลัก (เฉพาะ desktop) -->
         <nav class="hidden md:flex gap-6 text-gray-700 font-medium">
-          <a href="#" class="hover:text-green-600">หน้าแรก</a>
-          <a href="#" class="hover:text-green-600">โปรโมชั่น</a>
-          <a href="#" class="hover:text-green-600">หมวดหมู่</a>
-          <a href="#" class="hover:text-green-600">บทความ</a>
-          <a href="#" class="hover:text-green-600">เกี่ยวกับเรา</a>
+          <a href="#" class="hover:text-green-600 transition">หน้าแรก</a>
+          <a href="#" class="hover:text-green-600 transition">โปรโมชั่น</a>
+          <a href="#" class="hover:text-green-600 transition">หมวดหมู่</a>
+          <a href="#" class="hover:text-green-600 transition">บทความ</a>
+          <a href="#" class="hover:text-green-600 transition">เกี่ยวกับเรา</a>
         </nav>
 
-        <!-- 🔸 ไอคอน -->
-        <div class="hidden md:flex space-x-3">
-          <img src="https://cdn-icons-png.freepik.com/512/8801/8801434.png"
-               class="w-7 hover:scale-110 transition"
-               alt="บัญชีผู้ใช้">
-          <img src="https://media.istockphoto.com/id/898475764/vector/shopping-trolley-cart-icon-in-green-circle-vector.jpg?s=612x612"
-               class="w-7 hover:scale-110 transition"
-               alt="ตะกร้าสินค้า">
+        <!-- 🔸 ไอคอนขวาสุด -->
+        <div class="flex space-x-3">
+          <button onclick="alert('บัญชีผู้ใช้')" class="focus:outline-none">
+            <img src="https://cdn-icons-png.freepik.com/512/8801/8801434.png" class="w-7 hover:scale-110 transition" alt="บัญชีผู้ใช้">
+          </button>
+          <button onclick="alert('ตะกร้าสินค้า')" class="focus:outline-none">
+            <img src="https://media.istockphoto.com/id/898475764/vector/shopping-trolley-cart-icon-in-green-circle-vector.jpg?s=612x612&w=0&k=20&c=W_b90qFRpj_FyLyI19xWqB6EoNSuJYwMSN9nnKkE9Hk=" class="w-7 hover:scale-110 transition" alt="ตะกร้าสินค้า">
+          </button>
         </div>
       </div>
-
-      <!-- 🔸 เมนูแบบพับเก็บ (มือถือ) -->
-      <nav id="mobile-menu" class="hidden flex-col bg-white text-gray-700 text-center md:hidden border-t">
-        <a href="#" class="py-2 hover:bg-green-50">หน้าแรก</a>
-        <a href="#" class="py-2 hover:bg-green-50">โปรโมชั่น</a>
-        <a href="#" class="py-2 hover:bg-green-50">หมวดหมู่</a>
-        <a href="#" class="py-2 hover:bg-green-50">บทความ</a>
-        <a href="#" class="py-2 hover:bg-green-50">เกี่ยวกับเรา</a>
-
-        <div class="flex justify-center gap-5 py-3 border-t">
-          <img src="https://cdn-icons-png.freepik.com/512/8801/8801434.png" class="w-6" alt="บัญชีผู้ใช้">
-          <img src="https://media.istockphoto.com/id/898475764/vector/shopping-trolley-cart-icon-in-green-circle-vector.jpg?s=612x612" class="w-6" alt="ตะกร้าสินค้า">
-        </div>
-      </nav>
     </header>
 
-    <!-- 🔹 ช่องค้นหา (อยู่ใต้ Navbar) -->
-    <section class="px-6 py-4 bg-gray-100 flex justify-center">
-      <form class="flex items-center bg-white rounded-full px-3 py-1 w-full max-w-xl shadow-sm">
+    <!-- 🔹 แถบค้นหาแบบ Sticky -->
+    <section class="sticky top-[64px] z-40 px-6 py-3 bg-gray-100 flex justify-center shadow-sm">
+      <form class="flex items-center bg-white rounded-full px-3 py-1 w-full max-w-xl shadow">
         <input type="text" name="q" placeholder="ค้นหาสินค้า..." class="flex-1 bg-transparent outline-none px-2 py-1 text-gray-700" />
         <button type="submit" class="bg-green-500 text-white px-5 py-1 rounded-full hover:bg-green-600">
           ค้นหา
@@ -73,20 +59,52 @@
 
     <!-- 🔹 เนื้อหาทดสอบ -->
     <main class="p-6 text-center">
-      <h1 class="text-2xl font-semibold mb-4">ยินดีต้อนรับสู่ iHAVEPHAI</h1>
-      <p class="text-gray-600">ตัวอย่าง Navbar แบบ Responsive ด้วย Tailwind CSS</p>
+      <h1 class="text-2xl font-semibold mb-4">เมนูแฮมเบอร์เกอร์แบบ Drawer (โผล่จากซ้าย)</h1>
+      <p class="text-gray-600 mb-20">ใช้ Tailwind CSS + Transition</p>
+      <div class="h-[1000px] bg-gray-50 text-gray-500">
+        เลื่อนลงเพื่อดูแถบ Sticky ด้านบน 👇
+      </div>
     </main>
 
-    <!-- 🔹 Script สำหรับเปิด/ปิดเมนู -->
-    <script>
-      const btn = document.getElementById('menu-btn');
-      const menu = document.getElementById('mobile-menu');
-      btn.addEventListener('click', () => {
-        menu.classList.toggle('hidden');
-      });
-    </script>
+    <!-- 🔸 Overlay มืดเมื่อเปิดเมนู -->
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40 transition-opacity duration-300"></div>
 
+    <!-- 🔸 เมนู Drawer (ด้านซ้าย) -->
+    <aside id="drawer-menu"
+           class="fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform -translate-x-full transition-transform duration-300 z-50">
+      <div class="flex justify-between items-center p-4 border-b">
+        <h2 class="text-lg font-semibold text-green-600">เมนู</h2>
+        <button id="close-btn" class="text-gray-600 hover:text-red-500 focus:outline-none text-2xl">&times;</button>
+      </div>
+      <nav class="flex flex-col text-gray-700 font-medium mt-2">
+        <a href="#" class="py-3 px-5 hover:bg-green-50 text-left">หน้าแรก</a>
+        <a href="#" class="py-3 px-5 hover:bg-green-50 text-left">โปรโมชั่น</a>
+        <a href="#" class="py-3 px-5 hover:bg-green-50 text-left">หมวดหมู่</a>
+        <a href="#" class="py-3 px-5 hover:bg-green-50 text-left">บทความ</a>
+        <a href="#" class="py-3 px-5 hover:bg-green-50 text-left">เกี่ยวกับเรา</a>
+      </nav>
+    </aside>
+
+    <!-- 🔹 Script ควบคุมเมนู -->
+    <script>
+      const menuBtn = document.getElementById('menu-btn');
+      const closeBtn = document.getElementById('close-btn');
+      const drawer = document.getElementById('drawer-menu');
+      const overlay = document.getElementById('overlay');
+
+      // เปิดเมนู
+      menuBtn.addEventListener('click', () => {
+        drawer.classList.remove('-translate-x-full');
+        overlay.classList.remove('hidden');
+      });
+
+      // ปิดเมนู (กดปุ่มปิดหรือคลิกพื้นหลัง)
+      const closeMenu = () => {
+        drawer.classList.add('-translate-x-full');
+        overlay.classList.add('hidden');
+      };
+      closeBtn.addEventListener('click', closeMenu);
+      overlay.addEventListener('click', closeMenu);
+    </script>
   </body>
 </html>
-
-
