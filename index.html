@@ -60,7 +60,7 @@
     <!-- 🔹 เนื้อหาทดสอบ -->
 <main class="p-0">
 
-  <!-- ⭐⭐ แบนเนอร์สไลด์แบบลากได้ + ปุ่ม + วนลูป ⭐⭐ -->
+  <!-- ⭐⭐ แบนเนอร์สไลด์ครบเซ็ต ⭐⭐ -->
   <section class="relative w-full overflow-hidden select-none">
 
     <!-- ปุ่มซ้าย -->
@@ -75,21 +75,24 @@
       ▶
     </button>
 
-    <!-- สไลด์ -->
+    <!-- สไลด์ภาพ -->
     <div id="slider"
-         class="flex transition-transform duration-500 ease-in-out cursor-grab">
+         class="flex transition-transform duration-500 ease-in-out cursor-grab select-none">
 
       <!-- สไลด์จริง -->
-      <img src="https://brownliving.in/cdn/shop/collections/sustainable-bamboo-essentials-457533.jpg?v=1742239342"
-           class="slide w-full h-[200px] md:h-[380px] object-cover flex-shrink-0" />
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPtbcbNJOZ3-YKYbBJjdXfUGWVEfti3vO4mg&s"
-           class="slide w-full h-[200px] md:h-[380px] object-cover flex-shrink-0" />
-      <img src="https://seairweb.s3.ap-south-1.amazonaws.com/UserFile/Common/1/10042.png"
+      <img src="banner1.jpg" draggable="false"
            class="slide w-full h-[200px] md:h-[380px] object-cover flex-shrink-0" />
 
-      <!-- ⭐ clone เพื่อทำสไลด์วนลูป ⭐ -->
-      <img src="https://brownliving.in/cdn/shop/collections/sustainable-bamboo-essentials-457533.jpg?v=1742239342"
+      <img src="banner2.jpg" draggable="false"
            class="slide w-full h-[200px] md:h-[380px] object-cover flex-shrink-0" />
+
+      <img src="banner3.jpg" draggable="false"
+           class="slide w-full h-[200px] md:h-[380px] object-cover flex-shrink-0" />
+
+      <!-- clone เพื่อทำวนลูป -->
+      <img src="banner1.jpg" draggable="false"
+           class="slide w-full h-[200px] md:h-[380px] object-cover flex-shrink-0" />
+
     </div>
 
     <!-- จุดบอกตำแหน่ง -->
@@ -102,199 +105,6 @@
   </section>
 
 
-  <!-- ส่วนอื่น ๆ ของ Mark -->
-  <section class="px-6 mt-8 mb-10">
-    <h2 class="text-2xl font-bold text-green-700 mb-4">หมวดหมู่สินค้าไผ่</h2>
-
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="bg-white p-4 rounded-xl shadow hover:shadow-lg transition">
-        <p class="font-semibold text-gray-700">ของใช้ในบ้านจากไผ่</p>
-      </div>
-      <div class="bg-white p-4 rounded-xl shadow hover:shadow-lg transition">
-        <p class="font-semibold text-gray-700">อุปกรณ์ครัวไม้ไผ่</p>
-      </div>
-      <div class="bg-white p-4 rounded-xl shadow hover:shadow-lg transition">
-        <p class="font-semibold text-gray-700">เฟอร์นิเจอร์ไม้ไผ่</p>
-      </div>
-      <div class="bg-white p-4 rounded-xl shadow hover:shadow-lg transition">
-        <p class="font-semibold text-gray-700">งานสานไผ่</p>
-      </div>
-    </div>
-  </section>
-
-
-  <section class="px-6 mb-8">
-    <div class="flex justify-between items-center">
-      <h2 class="text-xl font-bold text-green-700">รายการสินค้า</h2>
-
-      <select id="sort" class="px-3 py-2 rounded-lg bg-white shadow border outline-none">
-        <option value="popular">ซื้อมากที่สุด</option>
-        <option value="price-high">ราคาสูง → ต่ำ</option>
-        <option value="price-low">ราคาต่ำ → สูง</option>
-        <option value="new">สินค้าใหม่</option>
-      </select>
-    </div>
-  </section>
-
-  <!-- ⭐ สินค้าใหม่ -->
-  <section class="px-6 mb-10">
-    <h2 class="text-2xl font-bold text-green-700 mb-4">สินค้าใหม่</h2>
-
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
-      <div class="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1606813907291-7c21a6ac5e3b"
-             class="w-full h-36 object-cover">
-        <div class="p-3">
-          <p class="font-semibold">กระติ๊บข้าวไม้ไผ่</p>
-          <p class="text-green-600 font-bold">฿159</p>
-        </div>
-      </div>
-
-      <div class="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1591533134988-593d258f52f9"
-             class="w-full h-36 object-cover">
-        <div class="p-3">
-          <p class="font-semibold">ชั้นวางของไม้ไผ่</p>
-          <p class="text-green-600 font-bold">฿459</p>
-        </div>
-      </div>
-
-      <div class="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3"
-             class="w-full h-36 object-cover">
-        <div class="p-3">
-          <p class="font-semibold">ชุดช้อน–ส้อมไม้ไผ่</p>
-          <p class="text-green-600 font-bold">฿89</p>
-        </div>
-      </div>
-
-      <div class="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1606813907323-7b873e33e33a"
-             class="w-full h-36 object-cover">
-        <div class="p-3">
-          <p class="font-semibold">ถาดเสิร์ฟไม้ไผ่</p>
-          <p class="text-green-600 font-bold">฿199</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-
-<!-- ⭐⭐ สคริปต์สไลด์เวอร์ชันสมบูรณ์ ⭐⭐ -->
-<script>
-  const slider = document.getElementById("slider");
-  const slides = document.querySelectorAll(".slide");
-  const dots = document.querySelectorAll(".dot");
-  const prevBtn = document.getElementById("prevBtn");
-  const nextBtn = document.getElementById("nextBtn");
-
-  let index = 0;
-  let isDragging = false;
-  let startX = 0;
-  let currentTranslate = 0;
-  let prevTranslate = 0;
-
-  /* ======= อัปเดตจุดตำแหน่ง ======= */
-  function updateDots() {
-    dots.forEach(d => d.classList.remove("bg-white/70"));
-    dots.forEach(d => d.classList.add("bg-white/30"));
-    dots[index % 3].classList.add("bg-white/70");
-  }
-
-  /* ======= แสดงสไลด์ ======= */
-  function showSlide(i) {
-    slider.style.transition = "transform 0.5s ease-in-out";
-    slider.style.transform = `translateX(-${i * 100}%)`;
-    updateDots();
-  }
-
-  /* ======= สไลด์ถัดไป ======= */
-  function nextSlide() {
-    index++;
-    showSlide(index);
-
-    if (index === slides.length - 1) {
-      setTimeout(() => {
-        slider.style.transition = "none";
-        index = 0;
-        showSlide(index);
-      }, 500);
-    }
-  }
-
-  /* ======= สไลด์ก่อนหน้า ======= */
-  function prevSlide() {
-    if (index === 0) {
-      slider.style.transition = "none";
-      index = slides.length - 2;
-      slider.style.transform = `translateX(-${index * 100}%)`;
-    }
-    setTimeout(() => {
-      index--;
-      showSlide(index);
-    }, 20);
-  }
-
-  /* ===== ปุ่ม ซ้าย/ขวา ===== */
-  nextBtn.onclick = nextSlide;
-  prevBtn.onclick = prevSlide;
-
-  /* ===== Auto slide ===== */
-  setInterval(nextSlide, 4000);
-
-  /* =====รองรับลากเมาส์======= */
-  slider.addEventListener("mousedown", e => {
-    isDragging = true;
-    startX = e.clientX;
-    prevTranslate = -index * slider.clientWidth;
-    slider.style.transition = "none";
-    slider.style.cursor = "grabbing";
-  });
-
-  slider.addEventListener("mousemove", e => {
-    if (!isDragging) return;
-    const diff = e.clientX - startX;
-    currentTranslate = prevTranslate + diff;
-    slider.style.transform = `translateX(${currentTranslate}px)`;
-  });
-
-  slider.addEventListener("mouseup", e => endDrag(e.clientX));
-  slider.addEventListener("mouseleave", e => {
-    if (isDragging) endDrag(e.clientX);
-  });
-
-  /* =====ปัดมือถือ======= */
-  slider.addEventListener("touchstart", e => {
-    isDragging = true;
-    startX = e.touches[0].clientX;
-    prevTranslate = -index * slider.clientWidth;
-    slider.style.transition = "none";
-  });
-
-  slider.addEventListener("touchmove", e => {
-    if (!isDragging) return;
-    const diff = e.touches[0].clientX - startX;
-    currentTranslate = prevTranslate + diff;
-    slider.style.transform = `translateX(${currentTranslate}px)`;
-  });
-
-  slider.addEventListener("touchend", e => endDrag(e.changedTouches[0].clientX));
-
-  /* ==== ปล่อยแล้วค่อย snap กลับ ==== */
-  function endDrag(endX) {
-    isDragging = false;
-    slider.style.cursor = "grab";
-    slider.style.transition = "transform 0.3s ease-out";
-
-    const moved = endX - startX;
-
-    if (moved < -50) nextSlide();
-    else if (moved > 50) prevSlide();
-    else showSlide(index);
-  }
-</script>
 
   <!-- ⭐ หมวดหมู่สินค้า -->
   <section class="px-6 mt-8 mb-10">
@@ -316,10 +126,11 @@
     </div>
   </section>
 
+
+
   <!-- ⭐ ตัวกรองสินค้า -->
   <section class="px-6 mb-8">
     <div class="flex justify-between items-center">
-
       <h2 class="text-xl font-bold text-green-700">รายการสินค้า</h2>
 
       <select id="sort" class="px-3 py-2 rounded-lg bg-white shadow border outline-none">
@@ -328,9 +139,10 @@
         <option value="price-low">ราคาต่ำ → สูง</option>
         <option value="new">สินค้าใหม่</option>
       </select>
-
     </div>
   </section>
+
+
 
   <!-- ⭐ สินค้าใหม่ -->
   <section class="px-6 mb-10">
@@ -376,6 +188,129 @@
 
     </div>
   </section>
+
+</main>
+
+
+
+<!-- ⭐⭐⭐ สคริปต์สไลด์แบบเต็ม + ปิด drag รูป ⭐⭐⭐ -->
+<script>
+  const slider = document.getElementById("slider");
+  const slides = document.querySelectorAll(".slide");
+  const dots = document.querySelectorAll(".dot");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+
+  let index = 0;
+  let isDragging = false;
+  let startX = 0;
+  let currentTranslate = 0;
+  let prevTranslate = 0;
+
+  /* ⭐ ปิดการลากรูปภาพ ⭐ */
+  document.querySelectorAll("#slider img").forEach(img => {
+    img.setAttribute("draggable", "false");
+    img.addEventListener("dragstart", e => e.preventDefault());
+  });
+
+  /* ⭐ จุดตำแหน่ง ⭐ */
+  function updateDots() {
+    dots.forEach(d => d.classList.remove("bg-white/70"));
+    dots.forEach(d => d.classList.add("bg-white/30"));
+    dots[index % 3].classList.add("bg-white/70");
+  }
+
+  /* ⭐ แสดงสไลด์ ⭐ */
+  function showSlide(i) {
+    slider.style.transition = "transform 0.5s ease-in-out";
+    slider.style.transform = `translateX(-${i * 100}%)`;
+    updateDots();
+  }
+
+  /* ⭐ สไลด์ต่อไป ⭐ */
+  function nextSlide() {
+    index++;
+    showSlide(index);
+
+    if (index === slides.length - 1) {
+      setTimeout(() => {
+        slider.style.transition = "none";
+        index = 0;
+        showSlide(index);
+      }, 500);
+    }
+  }
+
+  /* ⭐ สไลด์ก่อนหน้า ⭐ */
+  function prevSlide() {
+    if (index === 0) {
+      slider.style.transition = "none";
+      index = slides.length - 2;
+      slider.style.transform = `translateX(-${index * 100}%)`;
+    }
+    setTimeout(() => {
+      index--;
+      showSlide(index);
+    }, 20);
+  }
+
+  nextBtn.onclick = nextSlide;
+  prevBtn.onclick = prevSlide;
+
+  /* ⭐ Auto slide ⭐ */
+  setInterval(nextSlide, 4000);
+
+  /* ⭐ ลากด้วยเมาส์ ⭐ */
+  slider.addEventListener("mousedown", e => {
+    isDragging = true;
+    startX = e.clientX;
+    prevTranslate = -index * slider.clientWidth;
+    slider.style.transition = "none";
+    slider.style.cursor = "grabbing";
+  });
+
+  slider.addEventListener("mousemove", e => {
+    if (!isDragging) return;
+    const diff = e.clientX - startX;
+    currentTranslate = prevTranslate + diff;
+    slider.style.transform = `translateX(${currentTranslate}px)`;
+  });
+
+  slider.addEventListener("mouseup", e => endDrag(e.clientX));
+  slider.addEventListener("mouseleave", e => {
+    if (isDragging) endDrag(e.clientX);
+  });
+
+  /* ⭐ ปัดบนมือถือ ⭐ */
+  slider.addEventListener("touchstart", e => {
+    isDragging = true;
+    startX = e.touches[0].clientX;
+    prevTranslate = -index * slider.clientWidth;
+    slider.style.transition = "none";
+  });
+
+  slider.addEventListener("touchmove", e => {
+    if (!isDragging) return;
+    const diff = e.touches[0].clientX - startX;
+    currentTranslate = prevTranslate + diff;
+    slider.style.transform = `translateX(${currentTranslate}px)`;
+  });
+
+  slider.addEventListener("touchend", e => endDrag(e.changedTouches[0].clientX));
+
+  /* ⭐ ปล่อยแล้ว snap กลับ ⭐ */
+  function endDrag(endX) {
+    isDragging = false;
+    slider.style.cursor = "grab";
+    slider.style.transition = "transform 0.3s ease-out";
+
+    const moved = endX - startX;
+
+    if (moved < -50) nextSlide();
+    else if (moved > 50) prevSlide();
+    else showSlide(index);
+  }
+</script>
 
   <!-- ⭐ สินค้ายอดนิยม -->
   <section class="px-6 mb-10">
@@ -511,6 +446,7 @@
     </script>
   </body>
 </html>
+
 
 
 
