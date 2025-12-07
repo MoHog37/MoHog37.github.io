@@ -60,33 +60,241 @@
     <!-- 🔹 เนื้อหาทดสอบ -->
 <main class="p-0">
 
-  <!-- ⭐⭐ แบนเนอร์สไลด์ ⭐⭐ -->
-  <section class="relative w-full overflow-hidden">
+  <!-- ⭐⭐ แบนเนอร์สไลด์แบบลากได้ + ปุ่ม + วนลูป ⭐⭐ -->
+  <section class="relative w-full overflow-hidden select-none">
 
-    <!-- สไลด์ทั้งหมด -->
-    <div id="slider" class="flex transition-transform duration-700 ease-in-out">
+    <!-- ปุ่มซ้าย -->
+    <button id="prevBtn"
+            class="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-white/70 hover:bg-white w-10 h-10 rounded-full shadow flex items-center justify-center">
+      ◀
+    </button>
 
-      <!-- Slide 1 -->
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEJ4mYNkzqNw6up_oJ2fH1zjZfdQ0zYh5-pg&s"
-           class="w-full h-[200px] md:h-[380px] object-cover flex-shrink-0" />
+    <!-- ปุ่มขวา -->
+    <button id="nextBtn"
+            class="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-white/70 hover:bg-white w-10 h-10 rounded-full shadow flex items-center justify-center">
+      ▶
+    </button>
 
-      <!-- Slide 2 -->
-      <img src="https://www.khaosod.co.th/technologychaoban/wp-content/uploads/2018/06/%E0%B9%84%E0%B8%9C%E0%B9%88%E0%B8%81%E0%B8%B4%E0%B8%A1%E0%B8%8B%E0%B8%B8%E0%B8%87-15%E0%B8%A1%E0%B8%B4%E0%B8%A2.png"
-           class="w-full h-[200px] md:h-[380px] object-cover flex-shrink-0" />
+    <!-- สไลด์ -->
+    <div id="slider"
+         class="flex transition-transform duration-500 ease-in-out cursor-grab">
 
-      <!-- Slide 3 -->
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkjScOm23XH_q8Zt2RbA_1JHj-ABQ12iE_Sg&s"
-           class="w-full h-[200px] md:h-[380px] object-cover flex-shrink-0" />
+      <!-- สไลด์จริง -->
+      <img src="https://brownliving.in/cdn/shop/collections/sustainable-bamboo-essentials-457533.jpg?v=1742239342"
+           class="slide w-full h-[200px] md:h-[380px] object-cover flex-shrink-0" />
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPtbcbNJOZ3-YKYbBJjdXfUGWVEfti3vO4mg&s"
+           class="slide w-full h-[200px] md:h-[380px] object-cover flex-shrink-0" />
+      <img src="https://seairweb.s3.ap-south-1.amazonaws.com/UserFile/Common/1/10042.png"
+           class="slide w-full h-[200px] md:h-[380px] object-cover flex-shrink-0" />
+
+      <!-- ⭐ clone เพื่อทำสไลด์วนลูป ⭐ -->
+      <img src="https://brownliving.in/cdn/shop/collections/sustainable-bamboo-essentials-457533.jpg?v=1742239342"
+           class="slide w-full h-[200px] md:h-[380px] object-cover flex-shrink-0" />
     </div>
 
-    <!-- จุดบอกตำแหน่งสไลด์ -->
-    <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-2">
+    <!-- จุดบอกตำแหน่ง -->
+    <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-2 z-20">
       <div class="dot w-3 h-3 bg-white/70 rounded-full"></div>
       <div class="dot w-3 h-3 bg-white/30 rounded-full"></div>
       <div class="dot w-3 h-3 bg-white/30 rounded-full"></div>
     </div>
 
   </section>
+
+
+  <!-- ส่วนอื่น ๆ ของ Mark -->
+  <section class="px-6 mt-8 mb-10">
+    <h2 class="text-2xl font-bold text-green-700 mb-4">หมวดหมู่สินค้าไผ่</h2>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="bg-white p-4 rounded-xl shadow hover:shadow-lg transition">
+        <p class="font-semibold text-gray-700">ของใช้ในบ้านจากไผ่</p>
+      </div>
+      <div class="bg-white p-4 rounded-xl shadow hover:shadow-lg transition">
+        <p class="font-semibold text-gray-700">อุปกรณ์ครัวไม้ไผ่</p>
+      </div>
+      <div class="bg-white p-4 rounded-xl shadow hover:shadow-lg transition">
+        <p class="font-semibold text-gray-700">เฟอร์นิเจอร์ไม้ไผ่</p>
+      </div>
+      <div class="bg-white p-4 rounded-xl shadow hover:shadow-lg transition">
+        <p class="font-semibold text-gray-700">งานสานไผ่</p>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="px-6 mb-8">
+    <div class="flex justify-between items-center">
+      <h2 class="text-xl font-bold text-green-700">รายการสินค้า</h2>
+
+      <select id="sort" class="px-3 py-2 rounded-lg bg-white shadow border outline-none">
+        <option value="popular">ซื้อมากที่สุด</option>
+        <option value="price-high">ราคาสูง → ต่ำ</option>
+        <option value="price-low">ราคาต่ำ → สูง</option>
+        <option value="new">สินค้าใหม่</option>
+      </select>
+    </div>
+  </section>
+
+  <!-- ⭐ สินค้าใหม่ -->
+  <section class="px-6 mb-10">
+    <h2 class="text-2xl font-bold text-green-700 mb-4">สินค้าใหม่</h2>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+      <div class="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1606813907291-7c21a6ac5e3b"
+             class="w-full h-36 object-cover">
+        <div class="p-3">
+          <p class="font-semibold">กระติ๊บข้าวไม้ไผ่</p>
+          <p class="text-green-600 font-bold">฿159</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1591533134988-593d258f52f9"
+             class="w-full h-36 object-cover">
+        <div class="p-3">
+          <p class="font-semibold">ชั้นวางของไม้ไผ่</p>
+          <p class="text-green-600 font-bold">฿459</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3"
+             class="w-full h-36 object-cover">
+        <div class="p-3">
+          <p class="font-semibold">ชุดช้อน–ส้อมไม้ไผ่</p>
+          <p class="text-green-600 font-bold">฿89</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1606813907323-7b873e33e33a"
+             class="w-full h-36 object-cover">
+        <div class="p-3">
+          <p class="font-semibold">ถาดเสิร์ฟไม้ไผ่</p>
+          <p class="text-green-600 font-bold">฿199</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+
+<!-- ⭐⭐ สคริปต์สไลด์เวอร์ชันสมบูรณ์ ⭐⭐ -->
+<script>
+  const slider = document.getElementById("slider");
+  const slides = document.querySelectorAll(".slide");
+  const dots = document.querySelectorAll(".dot");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+
+  let index = 0;
+  let isDragging = false;
+  let startX = 0;
+  let currentTranslate = 0;
+  let prevTranslate = 0;
+
+  /* ======= อัปเดตจุดตำแหน่ง ======= */
+  function updateDots() {
+    dots.forEach(d => d.classList.remove("bg-white/70"));
+    dots.forEach(d => d.classList.add("bg-white/30"));
+    dots[index % 3].classList.add("bg-white/70");
+  }
+
+  /* ======= แสดงสไลด์ ======= */
+  function showSlide(i) {
+    slider.style.transition = "transform 0.5s ease-in-out";
+    slider.style.transform = `translateX(-${i * 100}%)`;
+    updateDots();
+  }
+
+  /* ======= สไลด์ถัดไป ======= */
+  function nextSlide() {
+    index++;
+    showSlide(index);
+
+    if (index === slides.length - 1) {
+      setTimeout(() => {
+        slider.style.transition = "none";
+        index = 0;
+        showSlide(index);
+      }, 500);
+    }
+  }
+
+  /* ======= สไลด์ก่อนหน้า ======= */
+  function prevSlide() {
+    if (index === 0) {
+      slider.style.transition = "none";
+      index = slides.length - 2;
+      slider.style.transform = `translateX(-${index * 100}%)`;
+    }
+    setTimeout(() => {
+      index--;
+      showSlide(index);
+    }, 20);
+  }
+
+  /* ===== ปุ่ม ซ้าย/ขวา ===== */
+  nextBtn.onclick = nextSlide;
+  prevBtn.onclick = prevSlide;
+
+  /* ===== Auto slide ===== */
+  setInterval(nextSlide, 4000);
+
+  /* =====รองรับลากเมาส์======= */
+  slider.addEventListener("mousedown", e => {
+    isDragging = true;
+    startX = e.clientX;
+    prevTranslate = -index * slider.clientWidth;
+    slider.style.transition = "none";
+    slider.style.cursor = "grabbing";
+  });
+
+  slider.addEventListener("mousemove", e => {
+    if (!isDragging) return;
+    const diff = e.clientX - startX;
+    currentTranslate = prevTranslate + diff;
+    slider.style.transform = `translateX(${currentTranslate}px)`;
+  });
+
+  slider.addEventListener("mouseup", e => endDrag(e.clientX));
+  slider.addEventListener("mouseleave", e => {
+    if (isDragging) endDrag(e.clientX);
+  });
+
+  /* =====ปัดมือถือ======= */
+  slider.addEventListener("touchstart", e => {
+    isDragging = true;
+    startX = e.touches[0].clientX;
+    prevTranslate = -index * slider.clientWidth;
+    slider.style.transition = "none";
+  });
+
+  slider.addEventListener("touchmove", e => {
+    if (!isDragging) return;
+    const diff = e.touches[0].clientX - startX;
+    currentTranslate = prevTranslate + diff;
+    slider.style.transform = `translateX(${currentTranslate}px)`;
+  });
+
+  slider.addEventListener("touchend", e => endDrag(e.changedTouches[0].clientX));
+
+  /* ==== ปล่อยแล้วค่อย snap กลับ ==== */
+  function endDrag(endX) {
+    isDragging = false;
+    slider.style.cursor = "grab";
+    slider.style.transition = "transform 0.3s ease-out";
+
+    const moved = endX - startX;
+
+    if (moved < -50) nextSlide();
+    else if (moved > 50) prevSlide();
+    else showSlide(index);
+  }
+</script>
 
   <!-- ⭐ หมวดหมู่สินค้า -->
   <section class="px-6 mt-8 mb-10">
@@ -303,6 +511,7 @@
     </script>
   </body>
 </html>
+
 
 
 
