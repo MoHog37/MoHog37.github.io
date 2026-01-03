@@ -46,10 +46,11 @@
                     <i class="fa-regular fa-user text-xl"></i>
                 </button>
     
-                <button onclick="toggleCart()" class="relative p-2 text-gray-600 hover:text-green-600 transition">
+                <button onclick="toggleCart()" class="relative p-2">
                     <i class="fa-solid fa-cart-shopping text-xl"></i>
-                    <span id="cart-badge" class="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center opacity-0 transition-opacity duration-200">0</span>
+                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] rounded-full h-5 w-5 flex items-center justify-center opacity-0">0</span>
                 </button>
+                <script src="cart.js"></script>
             </div>
     </header>
 
@@ -332,6 +333,7 @@
     </script>
 </body>
 </html>
+
 
 
 
