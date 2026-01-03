@@ -99,34 +99,26 @@
         </nav>
     </aside>
 
-    <div id="cart-modal" class="fixed inset-0 z-[70] hidden">
-        <div class="absolute inset-0 bg-black bg-opacity-60 transition-opacity" onclick="toggleCart()"></div>
-        
-        <div class="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-xl transform transition-transform duration-300 translate-x-full flex flex-col" id="cart-panel">
-            
-            <div class="p-5 border-b flex justify-between items-center bg-gray-50">
-                <h2 class="text-xl font-bold text-gray-800"><i class="fa-solid fa-basket-shopping text-green-600 mr-2"></i> ตะกร้าของฉัน</h2>
-                <button onclick="toggleCart()" class="text-gray-500 hover:text-red-500 transition"><i class="fa-solid fa-xmark text-2xl"></i></button>
+    <div id="cart-modal" class="fixed inset-0 z-[100] hidden">
+    <div class="absolute inset-0 bg-black/50" onclick="toggleCart()"></div>
+    <div id="cart-panel" class="absolute right-0 top-0 h-full w-80 bg-white shadow-xl transform translate-x-full transition-transform duration-300 flex flex-col">
+        <div class="p-4 border-b flex justify-between items-center bg-green-600 text-white">
+            <h3 class="font-bold text-lg"><i class="fa-solid fa-cart-shopping mr-2"></i>ตะกร้าของคุณ</h3>
+            <button onclick="toggleCart()" class="text-2xl">&times;</button>
+        </div>
+        <div id="cart-items" class="flex-1 overflow-y-auto p-4 italic text-gray-500">
             </div>
-
-            <div id="cart-items" class="flex-1 overflow-y-auto p-5 space-y-4">
-                <div class="text-center text-gray-400 mt-10">
-                    <i class="fa-solid fa-basket-shopping text-6xl mb-4 opacity-30"></i>
-                    <p>ยังไม่มีสินค้าในตะกร้า</p>
-                </div>
+        <div class="p-4 border-t bg-gray-50">
+            <div class="flex justify-between mb-4 font-bold text-lg">
+                <span>ยอดรวม:</span>
+                <span class="text-green-600">฿<span id="cart-total">0</span></span>
             </div>
-
-            <div class="p-5 border-t bg-gray-50">
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-gray-600 font-medium">ยอดรวมทั้งหมด</span>
-                    <span class="text-2xl font-bold text-green-600">฿<span id="cart-total">0</span></span>
-                </div>
-                <button onclick="checkout()" class="w-full bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700 shadow-md transition hover:-translate-y-1">
-                    สั่งซื้อสินค้า
-                </button>
-            </div>
+            <a href="cart.html" class="block w-full bg-green-600 text-white text-center py-3 rounded-lg font-bold hover:bg-green-700 transition">
+                ไปหน้าชำระเงิน
+            </a>
         </div>
     </div>
+</div>
 
     <script>
         // --- 1. ข้อมูลสินค้าจำลอง ---
@@ -333,6 +325,7 @@
     </script>
 </body>
 </html>
+
 
 
 
