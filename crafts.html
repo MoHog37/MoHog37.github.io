@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>งานไม้ไผ่ & เฟอร์นิเจอร์ - iHAVEPHAI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body class="font-[Prompt] bg-stone-50 flex flex-col min-h-screen">
+
+    <header class="sticky top-0 bg-white shadow-md z-50">
+        <div class="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
+            <a href="index.html" class="flex items-center space-x-2">
+                <img src="iHavephai.png" onerror="this.src='https://via.placeholder.com/50x50?text=Logo'" class="w-12">
+                <span class="font-bold text-green-600 text-xl hidden sm:block">iHAVEPHAI</span>
+            </a>
+            <nav class="hidden md:flex gap-8 text-gray-700 font-medium">
+                <a href="index.html" class="hover:text-green-600 transition">หน้าแรก</a>
+                <a href="products.html" class="hover:text-green-600 transition">สินค้าทั้งหมด</a>
+                <a href="crafts.html" class="text-green-600 font-bold">งานไม้ไผ่</a>
+                <a href="articles.html" class="hover:text-green-600 transition">บทความ</a>
+            </nav>
+            <button onclick="toggleCart()" class="relative text-gray-600 hover:text-green-600">
+                <i class="fa-solid fa-cart-shopping text-xl"></i>
+                <span id="cart-badge" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center opacity-0">0</span>
+            </button>
+        </div>
+    </header>
+
+    <section class="relative h-[300px] bg-cover bg-center flex items-center justify-center text-white" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1594273577741-6e3e55132d73?auto=format&fit=crop&w=1200&q=80');">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-2">หัตถศิลป์ไม้ไผ่</h1>
+            <p class="text-lg text-gray-200">งานฝีมือประณีต ผสานภูมิปัญญาไทยสู่สากล</p>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-4 py-12 flex-grow w-full">
+        
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold text-stone-800 border-l-4 border-amber-500 pl-3 mb-6">เฟอร์นิเจอร์และของตกแต่ง</h2>
+            <div id="craft-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 border border-stone-200">
+            <div class="md:w-1/2">
+                <img src="https://images.unsplash.com/photo-1616606015525-4c0628290740?auto=format&fit=crop&w=800&q=80" class="rounded-xl shadow-md w-full">
+            </div>
+            <div class="md:w-1/2 space-y-4">
+                <h3 class="text-3xl font-bold text-stone-800">รับผลิตตามแบบ (Custom Order)</h3>
+                <p class="text-gray-600">
+                    เรามีทีมช่างฝีมือที่พร้อมเนรมิตงานไม้ไผ่ตามจินตนาการของคุณ ไม่ว่าจะเป็นซุ้มไม้ไผ่ 
+                    เฟอร์นิเจอร์ร้านกาแฟ หรือบรรจุภัณฑ์รักษ์โลก
+                </p>
+                <ul class="space-y-2 text-stone-700">
+                    <li><i class="fa-solid fa-check text-green-500 mr-2"></i> เลือกขนาดและรูปแบบได้</li>
+                    <li><i class="fa-solid fa-check text-green-500 mr-2"></i> ไม้ไผ่ผ่านการอบน้ำยากันมอด</li>
+                    <li><i class="fa-solid fa-check text-green-500 mr-2"></i> งานละเอียด ทนทาน</li>
+                </ul>
+                <button onclick="alert('ติดต่อไลน์ @ihavephai')" class="bg-amber-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-amber-700 transition mt-4 inline-block">
+                    สอบถามงานสั่งทำ
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-stone-900 text-stone-400 py-8 text-center mt-auto">
+        <p>&copy; 2024 iHAVEPHAI. สงวนลิขสิทธิ์.</p>
+    </footer>
+
+    <div id="cart-modal" class="fixed inset-0 z-[70] hidden">
+        <div class="absolute inset-0 bg-black bg-opacity-60 transition-opacity" onclick="toggleCart()"></div>
+        <div class="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-xl flex flex-col translate-x-full transition-transform duration-300" id="cart-panel">
+            <div class="p-5 border-b flex justify-between items-center bg-gray-50">
+                <h2 class="text-xl font-bold">ตะกร้า</h2>
+                <button onclick="toggleCart()" class="text-gray-500 hover:text-red-500"><i class="fa-solid fa-xmark text-2xl"></i></button>
+            </div>
+            <div id="cart-items" class="flex-1 overflow-y-auto p-5"></div>
+            <div class="p-5 border-t"><span id="cart-total" class="hidden"></span><button onclick="alert('Checkout')" class="w-full bg-green-600 text-white py-3 rounded-lg">ชำระเงิน</button></div>
+        </div>
+    </div>
+
+    <script>
+        // ใช้ข้อมูลชุดเดิม แต่กรองเฉพาะงานฝีมือ
+        const allProducts = [
+            { id: 2, name: "เก้าอี้ไม้ไผ่สาน", price: 1290, category: "เฟอร์นิเจอร์", image: "https://images.unsplash.com/photo-1594273577741-6e3e55132d73?auto=format&fit=crop&w=500&q=80", desc: "นั่งสบาย ระบายอากาศดี แข็งแรงทนทาน" },
+            { id: 4, name: "โคมไฟไม้ไผ่สาน", price: 590, category: "ตกแต่ง", image: "https://plus.unsplash.com/premium_photo-1664303387790-25e98547e231?auto=format&fit=crop&w=500&q=80", desc: "แสงนวลตา สร้างบรรยากาศอบอุ่น" },
+            { id: 6, name: "รั้วไม้ไผ่สำเร็จรูป (1.5ม.)", price: 450, category: "ตกแต่งสวน", image: "https://images.unsplash.com/photo-1567332367554-18c7d812b322?auto=format&fit=crop&w=500&q=80", desc: "ติดตั้งง่าย เพิ่มความเป็นส่วนตัว" },
+            { id: 7, name: "ตะกร้าสานไม้ไผ่", price: 250, category: "ของใช้", image: "https://images.unsplash.com/photo-1616606015525-4c0628290740?auto=format&fit=crop&w=500&q=80", desc: "งานสานละเอียด ใส่ของได้เยอะ" },
+            { id: 9, name: "โต๊ะกาแฟไม้ไผ่", price: 2500, category: "เฟอร์นิเจอร์", image: "https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?auto=format&fit=crop&w=500&q=80", desc: "ดีไซน์มินิมอล เข้ากับทุกมุมบ้าน" }
+        ];
+
+        let cart = JSON.parse(localStorage.getItem('iHavePhaiCart')) || [];
+
+        function renderCrafts() {
+            const grid = document.getElementById('craft-grid');
+            grid.innerHTML = allProducts.map(p => `
+                <div class="group bg-white rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition duration-300">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-0 transition"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-xl text-stone-800">${p.name}</h3>
+                            <span class="bg-amber-100 text-amber-800 text-xs px-2 py-1 rounded">${p.category}</span>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4">${p.desc || 'งานคุณภาพ เกรดพรีเมียม'}</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-green-600">฿${p.price}</span>
+                            <button onclick="addToCart(${p.id})" class="bg-stone-800 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition">สั่งซื้อ</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Cart Logic (Minimal Version for this page)
+        function addToCart(id) {
+            const product = allProducts.find(p => p.id === id);
+            const existingItem = cart.find(item => item.id === id);
+            if (existingItem) existingItem.qty++; else cart.push({ ...product, qty: 1 });
+            localStorage.setItem('iHavePhaiCart', JSON.stringify(cart));
+            updateCartUI();
+            toggleCart();
+        }
+        function updateCartUI() {
+            const badge = document.getElementById('cart-badge');
+            const count = cart.reduce((sum, i) => sum + i.qty, 0);
+            badge.innerText = count;
+            badge.classList.toggle('opacity-0', count === 0);
+            
+            const itemsDiv = document.getElementById('cart-items');
+            itemsDiv.innerHTML = cart.map(i => `<div class="flex justify-between border-b p-2"><span>${i.name} (x${i.qty})</span><span>${i.price*i.qty}</span></div>`).join('');
+        }
+        function toggleCart() {
+            const m = document.getElementById('cart-modal'), p = document.getElementById('cart-panel');
+            if(m.classList.contains('hidden')) { m.classList.remove('hidden'); setTimeout(()=>p.classList.remove('translate-x-full'),10); }
+            else { p.classList.add('translate-x-full'); setTimeout(()=>m.classList.add('hidden'),300); }
+        }
+
+        renderCrafts();
+        updateCartUI();
+    </script>
+</body>
+</html>
