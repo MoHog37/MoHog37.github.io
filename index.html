@@ -45,13 +45,12 @@
                 <button onclick="alert('ระบบสมาชิกจะเปิดให้บริการเร็วๆ นี้')" class="text-gray-600 hover:text-green-600 transition">
                     <i class="fa-regular fa-user text-xl"></i>
                 </button>
-                
-                <a href="cart.html" class="relative"></a>
+    
+                <button onclick="toggleCart()" class="relative p-2 text-gray-600 hover:text-green-600 transition">
                     <i class="fa-solid fa-cart-shopping text-xl"></i>
-                    <span id="cart-badge" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center opacity-0 transition-opacity duration-200">0</span>
+                    <span id="cart-badge" class="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center opacity-0 transition-opacity duration-200">0</span>
                 </button>
             </div>
-        </div>
     </header>
 
     <section class="sticky top-[64px] z-40 bg-gray-100 py-3 shadow-sm">
@@ -143,29 +142,29 @@
 
         // --- 2. ฟังก์ชันแสดงสินค้า (อัปเดตสำหรับ Link ไปหน้ารายละเอียด) ---
         function renderProducts(items = products) {
-            const grid = document.getElementById('product-grid');
-            grid.innerHTML = items.map(product => `
-                <div class="bg-white rounded-xl shadow-sm hover:shadow-xl transition duration-300 border border-gray-100 overflow-hidden group">
-                    <a href="product_detail.html?id=${product.id}" class="block h-48 overflow-hidden relative cursor-pointer">
-                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                        <span class="absolute top-2 left-2 bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded-md">
-                            ${product.category}
-                        </span>
-                    </a>
-                    <div class="p-4">
-                        <a href="product_detail.html?id=${product.id}" class="hover:text-green-600">
-                            <h3 class="font-bold text-gray-800 text-lg truncate">${product.name}</h3>
-                        </a>
-                        <div class="flex justify-between items-end mt-3">
-                            <span class="text-red-500 font-bold text-xl">฿${product.price}</span>
-                            <button onclick="addToCart(${product.id})" class="bg-green-100 text-green-700 hover:bg-green-600 hover:text-white p-2 rounded-lg transition">
-                                <i class="fa-solid fa-cart-plus"></i> เพิ่ม
-                            </button>
-                        </div>
-                    </div>
+    const grid = document.getElementById('product-grid');
+    grid.innerHTML = items.map(product => `
+        <div class="bg-white rounded-xl shadow-sm hover:shadow-xl transition duration-300 border border-gray-100 overflow-hidden group">
+            <a href="product_detail.html?id=${product.id}" class="block h-40 md:h-48 overflow-hidden relative">
+                <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                <span class="absolute top-2 left-2 bg-green-100 text-green-800 text-[10px] font-semibold px-2 py-1 rounded-md">
+                    ${product.category}
+                </span>
+            </a>
+            <div class="p-3 md:p-4">
+                <a href="product_detail.html?id=${product.id}" class="hover:text-green-600">
+                    <h3 class="font-bold text-gray-800 text-sm md:text-base truncate">${product.name}</h3>
+                </a>
+                <div class="flex justify-between items-center mt-3">
+                    <span class="text-red-500 font-bold text-base md:text-lg">฿${product.price}</span>
+                    <button onclick="addToCart(${product.id})" class="bg-green-100 text-green-700 hover:bg-green-600 hover:text-white p-2 rounded-lg transition text-xs">
+                        <i class="fa-solid fa-cart-plus"></i> เพิ่ม
+                    </button>
                 </div>
-            `).join('');
-        }
+            </div>
+        </div>
+    `).join('');
+}
 
         // --- 3. ฟังก์ชันตะกร้าสินค้า (อัปเดตสำหรับ LocalStorage) ---
         // โหลดตะกร้าจาก LocalStorage หากมี หรือเริ่มจากตะกร้าว่าง
@@ -189,9 +188,9 @@
             updateCartUI();
             
             // Animation เล็กน้อยที่ปุ่มตะกร้า
-            const btn = document.querySelector('.fa-cart-shopping').parentElement;
-            btn.classList.add('cart-bounce');
-            setTimeout(() => btn.classList.remove('cart-bounce'), 300);
+            const cartBtn = document.querySelector('button[onclick="toggleCart()"]');
+            cartBtn.classList.add('cart-bounce');
+            setTimeout(() => cartBtn.classList.remove('cart-bounce'), 300);
         }
 
         function updateCartUI() {
@@ -333,6 +332,7 @@
     </script>
 </body>
 </html>
+
 
 
 
