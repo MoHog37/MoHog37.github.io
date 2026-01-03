@@ -6,6 +6,9 @@
     <title>บทความน่ารู้ - iHAVEPHAI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    </style>
 </head>
 
 <body class="font-[Prompt] bg-gray-50 flex flex-col min-h-screen">
@@ -22,7 +25,7 @@
                 <a href="crafts.html" class="hover:text-green-600 transition">งานไม้ไผ่</a>
                 <a href="articles.html" class="text-green-600 font-bold">บทความ</a>
             </nav>
-            <button onclick="toggleCart()" class="relative text-gray-600 hover:text-green-600">
+            <button onclick="window.location.href='products.html?openCart=true'" class="relative text-gray-600 hover:text-green-600">
                 <i class="fa-solid fa-cart-shopping text-xl"></i>
                 <span id="cart-badge" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center opacity-0">0</span>
             </button>
@@ -30,26 +33,45 @@
     </header>
 
     <main class="max-w-7xl mx-auto px-4 py-12 flex-grow w-full">
-        <div class="text-center mb-12">
-            <h1 class="text-3xl font-bold text-gray-800">สาระน่ารู้เรื่องไผ่</h1>
-            <p class="text-gray-500 mt-2">เคล็ดลับการปลูก การดูแล และไอเดียการใช้งาน</p>
+        <div class="text-center mb-16">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">สาระน่ารู้เรื่องไผ่</h1>
+            <p class="text-gray-500 max-w-2xl mx-auto">รวบรวมเกร็ดความรู้ เทคนิคการปลูก และไอเดียการใช้งานไม้ไผ่ เพื่อคนรักไผ่โดยเฉพาะ</p>
         </div>
 
         <div id="article-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             </div>
     </main>
 
-    <footer class="bg-gray-800 text-gray-300 py-8 text-center mt-auto">
-        <p>&copy; 2024 iHAVEPHAI. สงวนลิขสิทธิ์.</p>
-    </footer>
+    <div id="article-modal" class="fixed inset-0 z-[60] hidden flex items-center justify-center px-4">
+        <div class="absolute inset-0 bg-black bg-opacity-70 transition-opacity" onclick="closeArticle()"></div>
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto relative z-10 animate-fade-in-up">
+            <button onclick="closeArticle()" class="absolute top-4 right-4 bg-gray-100 rounded-full p-2 hover:bg-red-100 hover:text-red-500 transition z-20">
+                <i class="fa-solid fa-xmark text-xl w-6 h-6 flex items-center justify-center"></i>
+            </button>
+            <div id="modal-content">
+                </div>
+        </div>
+    </div>
 
-    <div id="cart-modal" class="hidden"></div> <script>
-        // ข้อมูลบทความจำลอง
+    <script>
         const articles = [
             {
                 id: 1,
                 title: "5 ประโยชน์ของถ่านไม้ไผ่ ที่คุณอาจไม่เคยรู้",
-                excerpt: "ถ่านไม้ไผ่ไม่ได้มีดีแค่เป็นเชื้อเพลิง แต่ยังมีคุณสมบัติในการดูดซับกลิ่น ฟอกอากาศ และดีต่อสุขภาพ...",
+                excerpt: "ถ่านไม้ไผ่ไม่ได้มีดีแค่เป็นเชื้อเพลิง แต่ยังมีคุณสมบัติมหัศจรรย์ในการดูดซับกลิ่น ฟอกอากาศ และดีต่อสุขภาพ...",
+                content: `<img src="https://images.unsplash.com/photo-1599908630737-1833878c772e?auto=format&fit=crop&w=1000&q=80" class="w-full h-64 object-cover">
+                          <div class="p-8">
+                              <h2 class="text-3xl font-bold mb-4 text-gray-800">5 ประโยชน์ของถ่านไม้ไผ่</h2>
+                              <p class="mb-4 text-gray-600 leading-relaxed">ถ่านไม้ไผ่ (Bamboo Charcoal) เกิดจากการเผาไผ่ที่อุณหภูมิสูงกว่า 1,000 องศาเซลเซียส ทำให้มีรูพรุนมากกว่าถ่านไม้ทั่วไปถึง 4 เท่า!</p>
+                              <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-6">
+                                <li><strong>ดูดกลิ่นอับ:</strong> วางในตู้เย็น ตู้รองเท้า ช่วยขจัดกลิ่นได้ดีเยี่ยม</li>
+                                <li><strong>ฟอกอากาศ:</strong> ดูดซับสารพิษและฝุ่นละอองในอากาศ</li>
+                                <li><strong>ปรับความชื้น:</strong> ช่วยดูดความชื้นในฤดูฝน และคายความชื้นในฤดูแล้ง</li>
+                                <li><strong>กรองน้ำ:</strong> ใช้ใส่ในน้ำดื่มเพื่อดูดซับคลอรีนและโลหะหนัก</li>
+                                <li><strong>บำรุงดิน:</strong> ผสมดินปลูกต้นไม้ ช่วยให้ดินร่วนซุย</li>
+                              </ul>
+                              <p class="text-gray-600">รู้อย่างนี้แล้ว อย่าลืมหาถ่านไม้ไผ่ติดบ้านไว้สักก้อนนะครับ!</p>
+                          </div>`,
                 image: "https://images.unsplash.com/photo-1599908630737-1833878c772e?auto=format&fit=crop&w=600&q=80",
                 date: "12 ม.ค. 2024"
             },
@@ -57,6 +79,17 @@
                 id: 2,
                 title: "เทคนิคการปลูกไผ่กิมซุง ให้หน่อดกตลอดปี",
                 excerpt: "เรียนรู้วิธีการเตรียมดิน การให้น้ำ และการใส่ปุ๋ย เพื่อให้ไผ่กิมซุงของคุณออกหน่อสวย ขายได้ราคาดี...",
+                content: `<img src="https://images.unsplash.com/photo-1533907650686-70576141c030?auto=format&fit=crop&w=1000&q=80" class="w-full h-64 object-cover">
+                          <div class="p-8">
+                              <h2 class="text-3xl font-bold mb-4 text-gray-800">เคล็ดลับปลูกไผ่กิมซุง</h2>
+                              <p class="mb-4 text-gray-600">ไผ่กิมซุง หรือไผ่ตงลืมแล้ง เป็นไผ่เศรษฐกิจที่ปลูกง่าย โตไว วันนี้เรามีเคล็ดลับมาฝากครับ</p>
+                              <h3 class="text-xl font-bold text-green-700 mt-4">1. การเตรียมดิน</h3>
+                              <p class="text-gray-600 mb-2">ควรขุดหลุมขนาด 50x50x50 ซม. รองก้นหลุมด้วยปุ๋ยคอกเก่าผสมดินร่วน</p>
+                              <h3 class="text-xl font-bold text-green-700 mt-4">2. การให้น้ำ</h3>
+                              <p class="text-gray-600 mb-2">ช่วง 3 เดือนแรกต้องให้น้ำสม่ำเสมอ อย่าให้ขาด หลังจากนั้นให้สัปดาห์ละ 2 ครั้ง</p>
+                              <h3 class="text-xl font-bold text-green-700 mt-4">3. การเก็บเกี่ยว</h3>
+                              <p class="text-gray-600">เมื่อไผ่อายุครบ 8 เดือน จะเริ่มแทงหน่อ ให้เลือกตัดหน่อที่สมบูรณ์ และเว้นลำแม่ไว้กอละ 4-5 ลำ</p>
+                          </div>`,
                 image: "https://images.unsplash.com/photo-1533907650686-70576141c030?auto=format&fit=crop&w=600&q=80",
                 date: "05 ก.พ. 2024"
             },
@@ -64,6 +97,15 @@
                 id: 3,
                 title: "ไอเดียแต่งสวนด้วยรั้วไม้ไผ่ สไตล์ญี่ปุ่น",
                 excerpt: "เปลี่ยนสวนหลังบ้านให้กลายเป็นมุมพักผ่อนสไตล์เซน ด้วยการนำไม้ไผ่มาทำรั้วและฉากกั้น...",
+                content: `<img src="https://images.unsplash.com/photo-1567332367554-18c7d812b322?auto=format&fit=crop&w=1000&q=80" class="w-full h-64 object-cover">
+                          <div class="p-8">
+                              <h2 class="text-3xl font-bold mb-4 text-gray-800">แต่งสวนสไตล์ Zen ด้วยไม้ไผ่</h2>
+                              <p class="mb-4 text-gray-600">ไม้ไผ่กับสวนญี่ปุ่นเป็นของคู่กัน ให้ความรู้สึกสงบ เรียบง่าย และเป็นธรรมชาติ</p>
+                              <p class="text-gray-600 mb-4">การใช้แผงรั้วไม้ไผ่สำเร็จรูปมาทำเป็นฉากกั้นโซน (Partition) จะช่วยเพิ่มความเป็นส่วนตัวโดยไม่ทำให้รู้สึกอึดอัด เหมือนกำแพงปูน</p>
+                              <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500 text-green-800">
+                                  <strong>Tip:</strong> ควรทาน้ำยากันมอดและเชื้อราทุกๆ 1-2 ปี จะช่วยยืดอายุการใช้งานของรั้วไม้ไผ่ได้ยาวนานขึ้นครับ
+                              </div>
+                          </div>`,
                 image: "https://images.unsplash.com/photo-1567332367554-18c7d812b322?auto=format&fit=crop&w=600&q=80",
                 date: "20 ก.พ. 2024"
             }
@@ -72,21 +114,39 @@
         function renderArticles() {
             const grid = document.getElementById('article-grid');
             grid.innerHTML = articles.map(art => `
-                <article class="bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden border border-gray-100 flex flex-col h-full">
-                    <div class="h-56 overflow-hidden">
-                        <img src="${art.image}" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                <article class="bg-white rounded-xl shadow-md hover:shadow-2xl transition duration-300 overflow-hidden border border-gray-100 flex flex-col h-full group">
+                    <div class="h-56 overflow-hidden relative cursor-pointer" onclick="openArticle(${art.id})">
+                        <img src="${art.image}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition"></div>
                     </div>
                     <div class="p-6 flex flex-col flex-1">
-                        <div class="text-xs text-green-600 font-semibold mb-2"><i class="fa-regular fa-calendar"></i> ${art.date}</div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-3 hover:text-green-600 cursor-pointer">${art.title}</h3>
-                        <p class="text-gray-500 text-sm mb-4 flex-1">${art.excerpt}</p>
-                        <a href="#" class="text-green-600 font-bold text-sm hover:underline">อ่านเพิ่มเติม &rarr;</a>
+                        <div class="flex items-center text-xs text-gray-400 mb-3 space-x-2">
+                            <i class="fa-regular fa-calendar text-green-500"></i>
+                            <span>${art.date}</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-green-600 cursor-pointer transition" onclick="openArticle(${art.id})">${art.title}</h3>
+                        <p class="text-gray-500 text-sm mb-6 flex-1 line-clamp-3">${art.excerpt}</p>
+                        <button onclick="openArticle(${art.id})" class="text-green-600 font-bold text-sm hover:underline flex items-center mt-auto">
+                            อ่านบทความ <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </button>
                     </div>
                 </article>
             `).join('');
         }
 
-        // ยังคงต้องมี Cart Logic เล็กน้อยเพื่อให้ Badge ทำงานถ้ามีสินค้าในตะกร้า
+        // --- Modal Logic ---
+        function openArticle(id) {
+            const art = articles.find(a => a.id === id);
+            if(!art) return;
+            document.getElementById('modal-content').innerHTML = art.content;
+            document.getElementById('article-modal').classList.remove('hidden');
+        }
+
+        function closeArticle() {
+            document.getElementById('article-modal').classList.add('hidden');
+        }
+
+        // Cart Badge Check only
         let cart = JSON.parse(localStorage.getItem('iHavePhaiCart')) || [];
         function updateCartBadge() {
             const badge = document.getElementById('cart-badge');
@@ -95,11 +155,6 @@
                 badge.innerText = count;
                 badge.classList.toggle('opacity-0', count === 0);
             }
-        }
-        function toggleCart() { 
-            // ในหน้าบทความอาจจะ Redirect ไปหน้าสินค้า หรือแค่โชว์ Alert ว่ามีกี่ชิ้น
-            if(cart.length > 0) alert(`คุณมีสินค้าในตะกร้า ${cart.length} รายการ \nกรุณาไปที่หน้า "สินค้าทั้งหมด" เพื่อชำระเงิน`);
-            else alert("ตะกร้าว่างเปล่า");
         }
 
         renderArticles();
