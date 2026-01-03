@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>สินค้าทั้งหมด - iHAVEPHAI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body class="font-[Prompt] bg-gray-50 flex flex-col min-h-screen">
+
+    <header class="sticky top-0 bg-white shadow-md z-50">
+        <div class="max-w-7xl mx-auto flex items-center justify-between px-4 md:px-6 py-3">
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <img src="iHavephai.png" onerror="this.src='https://via.placeholder.com/50x50?text=Logo'" class="w-12">
+                    <span class="font-bold text-green-600 text-xl hidden sm:block">iHAVEPHAI</span>
+                </a>
+            </div>
+            <nav class="hidden md:flex gap-8 text-gray-700 font-medium">
+                <a href="index.html" class="hover:text-green-600 transition">หน้าแรก</a>
+                <a href="products.html" class="text-green-600 font-bold">สินค้าทั้งหมด</a>
+                <a href="crafts.html" class="hover:text-green-600 transition">งานไม้ไผ่</a>
+                <a href="articles.html" class="hover:text-green-600 transition">บทความ</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleCart()" class="relative text-gray-600 hover:text-green-600 transition">
+                    <i class="fa-solid fa-cart-shopping text-xl"></i>
+                    <span id="cart-badge" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center opacity-0">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-white border-b py-4 sticky top-[64px] z-40">
+        <div class="max-w-7xl mx-auto px-4 flex flex-wrap gap-2 justify-center md:justify-start">
+            <button onclick="filterCategory('all')" class="filter-btn active bg-green-600 text-white px-4 py-1 rounded-full text-sm hover:bg-green-700 transition">ทั้งหมด</button>
+            <button onclick="filterCategory('พันธุ์ไผ่')" class="filter-btn bg-gray-200 text-gray-700 px-4 py-1 rounded-full text-sm hover:bg-green-100 hover:text-green-800 transition">พันธุ์ไผ่</button>
+            <button onclick="filterCategory('เฟอร์นิเจอร์')" class="filter-btn bg-gray-200 text-gray-700 px-4 py-1 rounded-full text-sm hover:bg-green-100 hover:text-green-800 transition">เฟอร์นิเจอร์</button>
+            <button onclick="filterCategory('ของใช้')" class="filter-btn bg-gray-200 text-gray-700 px-4 py-1 rounded-full text-sm hover:bg-green-100 hover:text-green-800 transition">ของใช้</button>
+            <button onclick="filterCategory('ตกแต่ง')" class="filter-btn bg-gray-200 text-gray-700 px-4 py-1 rounded-full text-sm hover:bg-green-100 hover:text-green-800 transition">ของตกแต่ง</button>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-4 py-10 flex-grow w-full">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8">รายการสินค้าทั้งหมด</h1>
+        <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+            </div>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-300 py-8 text-center mt-auto">
+        <p>&copy; 2024 iHAVEPHAI. สงวนลิขสิทธิ์.</p>
+    </footer>
+
+    <div id="cart-modal" class="fixed inset-0 z-[70] hidden">
+        <div class="absolute inset-0 bg-black bg-opacity-60 transition-opacity" onclick="toggleCart()"></div>
+        <div class="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-xl flex flex-col translate-x-full transition-transform duration-300" id="cart-panel">
+            <div class="p-5 border-b flex justify-between items-center bg-gray-50">
+                <h2 class="text-xl font-bold text-gray-800">ตะกร้าของฉัน</h2>
+                <button onclick="toggleCart()" class="text-gray-500 hover:text-red-500"><i class="fa-solid fa-xmark text-2xl"></i></button>
+            </div>
+            <div id="cart-items" class="flex-1 overflow-y-auto p-5 space-y-4"></div>
+            <div class="p-5 border-t bg-gray-50">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-gray-600">ยอดรวม</span>
+                    <span class="text-2xl font-bold text-green-600">฿<span id="cart-total">0</span></span>
+                </div>
+                <button onclick="alert('ไปหน้าชำระเงิน')" class="w-full bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700">สั่งซื้อสินค้า</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ข้อมูลสินค้า (ควรเหมือนหน้า Index หรือดึงจาก Database)
+        const products = [
+            { id: 1, name: "ไผ่กิมซุง (กิ่งพันธุ์)", price: 35, category: "พันธุ์ไผ่", image: "https://images.unsplash.com/photo-1533907650686-70576141c030?auto=format&fit=crop&w=500&q=80" },
+            { id: 2, name: "เก้าอี้ไม้ไผ่สาน", price: 1290, category: "เฟอร์นิเจอร์", image: "https://images.unsplash.com/photo-1594273577741-6e3e55132d73?auto=format&fit=crop&w=500&q=80" },
+            { id: 3, name: "หลอดดูดน้ำไม้ไผ่ (แพ็ค 10)", price: 150, category: "ของใช้", image: "https://images.unsplash.com/photo-1605342415177-3d964344183d?auto=format&fit=crop&w=500&q=80" },
+            { id: 4, name: "โคมไฟไม้ไผ่สาน", price: 590, category: "ตกแต่ง", image: "https://plus.unsplash.com/premium_photo-1664303387790-25e98547e231?auto=format&fit=crop&w=500&q=80" },
+            { id: 5, name: "หน่อไม้หวานอัดถุง", price: 80, category: "อาหาร", image: "https://images.unsplash.com/photo-1615485925763-8678628890a6?auto=format&fit=crop&w=500&q=80" },
+            { id: 6, name: "รั้วไม้ไผ่สำเร็จรูป (1.5ม.)", price: 450, category: "ตกแต่ง", image: "https://images.unsplash.com/photo-1567332367554-18c7d812b322?auto=format&fit=crop&w=500&q=80" },
+            { id: 7, name: "ตะกร้าสานไม้ไผ่", price: 250, category: "ของใช้", image: "https://images.unsplash.com/photo-1616606015525-4c0628290740?auto=format&fit=crop&w=500&q=80" },
+            { id: 8, name: "ถ่านดูดกลิ่นไม้ไผ่", price: 45, category: "ของใช้", image: "https://images.unsplash.com/photo-1599908630737-1833878c772e?auto=format&fit=crop&w=500&q=80" },
+            { id: 9, name: "โต๊ะกาแฟไม้ไผ่", price: 2500, category: "เฟอร์นิเจอร์", image: "https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?auto=format&fit=crop&w=500&q=80" }
+        ];
+
+        let cart = JSON.parse(localStorage.getItem('iHavePhaiCart')) || [];
+
+        function renderProducts(items) {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = items.map(product => `
+                <div class="bg-white rounded-xl shadow-sm hover:shadow-xl transition duration-300 border border-gray-100 overflow-hidden group">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="${product.image}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <span class="absolute top-2 left-2 bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded-md">${product.category}</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-800 text-lg truncate">${product.name}</h3>
+                        <div class="flex justify-between items-end mt-3">
+                            <span class="text-red-500 font-bold text-xl">฿${product.price}</span>
+                            <button onclick="addToCart(${product.id})" class="bg-green-100 text-green-700 hover:bg-green-600 hover:text-white p-2 rounded-lg transition"><i class="fa-solid fa-cart-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterCategory(category) {
+            // Update Buttons Style
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-green-600', 'text-white');
+                btn.classList.add('bg-gray-200', 'text-gray-700');
+            });
+            event.target.classList.remove('bg-gray-200', 'text-gray-700');
+            event.target.classList.add('bg-green-600', 'text-white');
+
+            // Filter Logic
+            if(category === 'all') {
+                renderProducts(products);
+            } else {
+                const filtered = products.filter(p => p.category === category || (category === 'ตกแต่ง' && p.category === 'ตกแต่งสวน'));
+                renderProducts(filtered);
+            }
+        }
+
+        // --- Cart Functions (Reuse) ---
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            const existingItem = cart.find(item => item.id === id);
+            if (existingItem) existingItem.qty++; else cart.push({ ...product, qty: 1 });
+            saveCart();
+            updateCartUI();
+            toggleCart();
+        }
+        function saveCart() { localStorage.setItem('iHavePhaiCart', JSON.stringify(cart)); }
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            const panel = document.getElementById('cart-panel');
+            if(modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                setTimeout(() => panel.classList.remove('translate-x-full'), 10);
+            } else {
+                panel.classList.add('translate-x-full');
+                setTimeout(() => modal.classList.add('hidden'), 300);
+            }
+        }
+        function updateCartUI() {
+            document.getElementById('cart-badge').innerText = cart.reduce((sum, i) => sum + i.qty, 0);
+            document.getElementById('cart-badge').classList.toggle('opacity-0', cart.length === 0);
+            
+            let total = 0;
+            const html = cart.map(item => {
+                total += item.price * item.qty;
+                return `<div class="flex justify-between items-center border-b pb-2">
+                    <div><p class="font-bold text-sm">${item.name}</p><p class="text-xs text-gray-500">x${item.qty}</p></div>
+                    <p class="font-bold text-green-600">฿${item.price * item.qty}</p>
+                </div>`;
+            }).join('');
+            document.getElementById('cart-items').innerHTML = html || '<p class="text-center text-gray-400">ว่างเปล่า</p>';
+            document.getElementById('cart-total').innerText = total.toLocaleString();
+        }
+
+        // Init
+        renderProducts(products);
+        updateCartUI();
+    </script>
+</body>
+</html>
