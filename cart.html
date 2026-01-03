@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>ตะกร้าสินค้า - iHAVEPHAI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 p-8">
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-xl shadow-lg">
+        <h1 class="text-2xl font-bold mb-6 border-b pb-4">รายการสั่งซื้อของคุณ</h1>
+        <div id="cart-list" class="space-y-4">
+            </div>
+        <div class="mt-8 border-t pt-4 text-right">
+            <p class="text-xl">ยอดรวมสุทธิ: <span id="total-price" class="font-bold text-green-600">0</span> บาท</p>
+            <button onclick="confirmOrder()" class="mt-4 bg-green-600 text-white px-8 py-3 rounded-lg font-bold">ยืนยันการชำระเงิน</button>
+        </div>
+    </div>
+
+    <script>
+        function renderCart() {
+            const cart = JSON.parse(localStorage.getItem('iHavePhaiCart')) || [];
+            const container = document.getElementById('cart-list');
+            let total = 0;
+
+            if (cart.length === 0) {
+                container.innerHTML = '<p class="text-center py-10">ไม่มีสินค้าในตะกร้า</p>';
+                return;
+            }
+
+            container.innerHTML = cart.map(item => {
+                total += item.price * item.qty;
+                return `
+                    <div class="flex justify-between items-center border-b pb-2">
+                        <div>
+                            <p class="font-bold">${item.name}</p>
+                            <p class="text-sm text-gray-500">จำนวน: ${item.qty} ชิ้น</p>
+                        </div>
+                        <p class="font-bold">฿${(item.price * item.qty).toLocaleString()}</p>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('total-price').innerText = total.toLocaleString();
+        }
+
+        function confirmOrder() {
+            alert('ระบบได้รับคำสั่งซื้อเรียบร้อยแล้ว!');
+            localStorage.removeItem('iHavePhaiCart'); // ล้างตะกร้าหลังซื้อเสร็จ
+            window.location.href = 'index.html';
+        }
+
+        renderCart();
+    </script>
+</body>
+</html>
