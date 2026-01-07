@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ชำระเงิน | iHAVEPHAI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #f8fafc; }
+        .payment-radio:checked + label { border-color: #16a34a; background-color: #f0fdf4; color: #16a34a; }
+        .error-border { border-color: #ef4444 !important; }
+        /* เพิ่ม Transition ให้สีขอบนุ่มนวลขึ้น */
+        input, textarea { transition: all 0.2s; }
+    </style>
+</head>
+<body class="pb-10">
+
+    <div class="bg-white shadow-sm py-4 px-6 sticky top-0 z-50 mb-6 border-b">
+        <div class="max-w-5xl mx-auto flex items-center justify-between">
+            <a href="index.html" class="text-gray-500 hover:text-green-600 transition flex items-center gap-2">
+                <i class="fa-solid fa-chevron-left text-xs"></i> กลับไปเลือกสินค้า
+            </a>
+            <h1 class="text-xl font-bold text-gray-800">การชำระเงิน</h1>
+            <div class="w-20"></div>
+        </div>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <div class="lg:col-span-2 space-y-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <h2 class="text-lg font-bold mb-5 flex items-center gap-2"><i class="fa-solid fa-location-dot text-red-500"></i> ที่อยู่จัดส่ง</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="md:col-span-2">
+                            <input type="text" id="cus_name" placeholder="ชื่อ-นามสกุล ผู้รับ" class="w-full border rounded-lg p-3 outline-none focus:border-green-500">
+                        </div>
+                        <div class="md:col-span-2">
+                            <textarea id="cus_address" rows="2" placeholder="ที่อยู่จัดส่ง" class="w-full border rounded-lg p-3 outline-none focus:border-green-500"></textarea>
+                        </div>
+                        <input type="tel" id="cus_tel" placeholder="เบอร์โทรศัพท์" class="w-full border rounded-lg p-3 outline-none focus:border-green-500">
+                        <input type="text" id="cus_zip" placeholder="รหัสไปรษณีย์" class="w-full border rounded-lg p-3 outline-none focus:border-green-500">
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <h2 class="text-lg font-bold mb-5 flex items-center gap-2"><i class="fa-solid fa-wallet text-blue-500"></i> ช่องทางการชำระเงิน</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+                        <input type="radio" name="pay_method" id="qr" value="qr" class="payment-radio hidden" checked onchange="togglePayView('qr')">
+                        <label for="qr" class="border-2 border-gray-100 rounded-xl p-4 flex flex-col items-center cursor-pointer transition"><i class="fa-solid fa-qrcode text-2xl mb-2"></i><span class="text-sm font-semibold">QR พร้อมเพย์</span></label>
+
+                        <input type="radio" name="pay_method" id="card" value="card" class="payment-radio hidden" onchange="togglePayView('card')">
+                        <label for="card" class="border-2 border-gray-100 rounded-xl p-4 flex flex-col items-center cursor-pointer transition"><i class="fa-solid fa-credit-card text-2xl mb-2"></i><span class="text-sm font-semibold">บัตรเครดิต</span></label>
+
+                        <input type="radio" name="pay_method" id="cod" value="cod" class="payment-radio hidden" onchange="togglePayView('cod')">
+                        <label for="cod" class="border-2 border-gray-100 rounded-xl p-4 flex flex-col items-center cursor-pointer transition"><i class="fa-solid fa-truck text-2xl mb-2"></i><span class="text-sm font-semibold">เก็บปลายทาง</span></label>
+                    </div>
+
+                    <div id="pay-qr" class="bg-gray-50 rounded-xl p-6 text-center border border-dashed">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=PROMPTPAY" class="mx-auto bg-white p-2 rounded-lg shadow-sm mb-2">
+                        <p class="text-xs text-gray-400">ชื่อบัญชี: บจก. ไอแฮฟไผ่</p>
+                    </div>
+
+                    <div id="pay-card" class="hidden space-y-3">
+                        <div><label class="text-xs text-gray-500">หมายเลขบัตร (16 หลัก)</label><input type="text" id="card_no" maxlength="16" placeholder="0000 0000 0000 0000" class="w-full border rounded-lg p-3 text-sm focus:border-green-500 outline-none"></div>
+                        <div class="flex gap-3">
+                            <div class="w-1/2"><label class="text-xs text-gray-500">วันหมดอายุ</label><input type="text" id="card_exp" maxlength="5" placeholder="MM/YY" class="w-full border rounded-lg p-3 text-sm focus:border-green-500 outline-none"></div>
+                            <div class="w-1/2"><label class="text-xs text-gray-500">CVV</label><input type="text" id="card_cvv" maxlength="3" placeholder="123" class="w-full border rounded-lg p-3 text-sm focus:border-green-500 outline-none"></div>
+                        </div>
+                    </div>
+                    <div id="pay-cod" class="hidden py-4 text-center"><p class="text-sm text-gray-600">ชำระเงินสดเมื่อได้รับสินค้า</p></div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1 space-y-4">
+                <div class="bg-white p-5 rounded-2xl shadow-sm border">
+                    <div class="flex items-center gap-2">
+                        <input type="text" id="promo-input" placeholder="โค้ดส่วนลด" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-green-500 uppercase">
+                        <button onclick="applyPromo()" class="flex-shrink-0 bg-gray-800 text-white px-5 py-2 rounded-lg text-sm font-bold hover:bg-black transition-all active:scale-95">ใช้งาน</button>
+                    </div>
+                    <p id="promo-error" class="text-red-500 text-xs mt-2 hidden">* โค้ดไม่ถูกต้องหรือหมดอายุ</p>
+                    <p id="promo-success" class="text-green-600 text-xs mt-2 hidden">ใช้โค้ดส่วนลดสำเร็จ!</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border sticky top-24">
+                    <h2 class="text-lg font-bold mb-4">สรุปยอดชำระ</h2>
+                    <div id="summary-items" class="space-y-4 mb-6 max-h-40 overflow-y-auto pr-2"></div>
+                    <div class="space-y-3 border-t pt-4">
+                        <div class="flex justify-between text-gray-600 text-sm"><span>ยอดรวม</span><span id="subtotal">฿0</span></div>
+                        <div id="discount-row" class="hidden flex justify-between text-red-500 text-sm"><span>ส่วนลด</span><span id="discount-amount">-฿0</span></div>
+                        <div class="flex justify-between text-xl font-bold text-gray-800 border-t pt-3"><span>ยอดสุทธิ</span><span class="text-green-600" id="grand-total">฿0</span></div>
+                    </div>
+                    <button onclick="validateAndAsk()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl shadow-lg mt-6 transition-all active:scale-95">ยืนยันการสั่งซื้อ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirm-modal" class="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-3xl p-8 max-w-sm w-full mx-4 text-center transform scale-90 transition-transform duration-300">
+            <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl"><i class="fa-solid fa-question"></i></div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">ยืนยันการสั่งซื้อ?</h3>
+            <p class="text-gray-500 mb-6 text-sm">ตรวจสอบข้อมูลที่อยู่และยอดชำระให้ถูกต้องก่อนดำเนินการต่อ</p>
+            <div class="flex gap-3">
+                <button onclick="closeConfirm()" class="flex-1 bg-gray-100 text-gray-600 font-bold py-3 rounded-xl">ยกเลิก</button>
+                <button onclick="showSuccessModal()" class="flex-1 bg-green-600 text-white font-bold py-3 rounded-xl shadow-md">ยืนยัน</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="success-modal" class="fixed inset-0 bg-black/60 z-[110] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-3xl p-8 max-w-sm w-full mx-4 text-center transform scale-90 transition-transform duration-300">
+            <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 text-4xl"><i class="fa-solid fa-check"></i></div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">สั่งซื้อสำเร็จ!</h3>
+            <p class="text-gray-500 mb-6">เราได้รับคำสั่งซื้อเรียบร้อยแล้ว</p>
+            <button onclick="window.location.href='index.html'" class="w-full bg-gray-900 text-white font-bold py-3 rounded-xl hover:bg-black transition">กลับไปหน้าแรก</button>
+        </div>
+    </div>
+
+    <script>
+        const cart = JSON.parse(localStorage.getItem("checkout_cart")) || [];
+        let subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+        let discount = 0;
+        let selectedMethod = 'qr';
+
+        // แสดงรายการสินค้าในหน้าสรุป
+        const itemContainer = document.getElementById("summary-items");
+        cart.forEach(item => {
+            const div = document.createElement("div");
+            div.className = "flex justify-between items-center text-sm";
+            div.innerHTML = `<span class="text-gray-600">${item.name} x${item.qty}</span><span class="font-bold">฿${(item.price * item.qty).toLocaleString()}</span>`;
+            itemContainer.appendChild(div);
+        });
+
+        function updateDisplay() {
+            document.getElementById("subtotal").innerText = `฿${subtotal.toLocaleString()}`;
+            document.getElementById("discount-amount").innerText = `-฿${discount.toLocaleString()}`;
+            document.getElementById("grand-total").innerText = `฿${(subtotal - discount).toLocaleString()}`;
+            document.getElementById("discount-row").classList.toggle("hidden", discount === 0);
+        }
+
+        function togglePayView(type) {
+            selectedMethod = type;
+            document.getElementById('pay-qr').classList.add('hidden');
+            document.getElementById('pay-card').classList.add('hidden');
+            document.getElementById('pay-cod').classList.add('hidden');
+            document.getElementById('pay-' + type).classList.remove('hidden');
+        }
+
+        // ระบบคูปองส่วนลดแบบใหม่
+        function applyPromo() {
+            const promoInput = document.getElementById("promo-input");
+            const errorMsg = document.getElementById("promo-error");
+            const successMsg = document.getElementById("promo-success");
+            const code = promoInput.value.trim().toUpperCase();
+
+            // ล้างสถานะเดิม
+            promoInput.classList.remove('error-border', 'border-green-500');
+            errorMsg.classList.add('hidden');
+            successMsg.classList.add('hidden');
+
+            if (code === "") {
+                promoInput.classList.add('error-border');
+                errorMsg.innerText = "* กรุณาระบุโค้ดส่วนลด";
+                errorMsg.classList.remove('hidden');
+                promoInput.focus();
+                return;
+            }
+
+            if (code === "IHAVECODE") {
+                discount = subtotal * 0.1;
+                promoInput.classList.add('border-green-500');
+                successMsg.innerText = `ใช้ส่วนลด IHAVECODE สำเร็จ (ลด ฿${discount.toLocaleString()})`;
+                successMsg.classList.remove('hidden');
+            } else {
+                discount = 0;
+                promoInput.classList.add('error-border');
+                errorMsg.innerText = "* โค้ดไม่ถูกต้องหรือหมดอายุ";
+                errorMsg.classList.remove('hidden');
+                promoInput.focus();
+            }
+            updateDisplay();
+        }
+
+        // ล้างสีแดงเมื่อเริ่มพิมพ์ใหม่
+        document.getElementById("promo-input").addEventListener("input", function() {
+            this.classList.remove('error-border');
+            document.getElementById("promo-error").classList.add('hidden');
+        });
+
+        function validateAndAsk() {
+            const fields = [document.getElementById("cus_name"), document.getElementById("cus_address"), document.getElementById("cus_tel"), document.getElementById("cus_zip")];
+            let isValid = true;
+
+            fields.forEach(el => {
+                el.classList.remove('error-border');
+                if(!el.value) { el.classList.add('error-border'); isValid = false; }
+            });
+
+            if(selectedMethod === 'card') {
+                const cardFields = [document.getElementById("card_no"), document.getElementById("card_exp"), document.getElementById("card_cvv")];
+                cardFields.forEach(el => el.classList.remove('error-border'));
+                if(cardFields[0].value.length < 16) { cardFields[0].classList.add('error-border'); isValid = false; }
+                if(cardFields[1].value.length < 5) { cardFields[1].classList.add('error-border'); isValid = false; }
+                if(cardFields[2].value.length < 3) { cardFields[2].classList.add('error-border'); isValid = false; }
+            }
+
+            if(!isValid) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+
+            const modal = document.getElementById('confirm-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => { modal.classList.remove('opacity-0'); modal.children[0].classList.remove('scale-90'); }, 10);
+        }
+
+        function closeConfirm() {
+            const modal = document.getElementById('confirm-modal');
+            modal.classList.add('opacity-0');
+            modal.children[0].classList.add('scale-90');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        function showSuccessModal() {
+            closeConfirm();
+            setTimeout(() => {
+                const modal = document.getElementById('success-modal');
+                modal.classList.remove('hidden');
+                setTimeout(() => { modal.classList.remove('opacity-0'); modal.children[0].classList.remove('scale-90'); }, 10);
+                localStorage.removeItem("iHavePhaiCart");
+                localStorage.removeItem("checkout_cart");
+            }, 350);
+        }
+
+        updateDisplay();
+    </script>
+</body>
+</html>
