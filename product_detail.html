@@ -11,19 +11,33 @@
         .active-thumb { border: 2px solid #16a34a; opacity: 1; }
         .inactive-thumb { border: 2px solid transparent; opacity: 0.6; }
         .inactive-thumb:hover { opacity: 1; }
-        /* ซ่อน Scrollbar */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Animation สำหรับ Popup */
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .animate-slide-up { animation: slideUp 0.3s ease-out forwards; }
     </style>
 </head>
 
 <body class="font-[Prompt] bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
+    <div id="cart-toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] hidden">
+        <div class="bg-gray-800 text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 animate-slide-up">
+            <i class="fa-solid fa-circle-check text-green-400"></i>
+            <span>เพิ่มลงในรถเข็นเรียบร้อยแล้ว!</span>
+            <a href="index.html?openCart=true" class="text-green-400 font-bold ml-2 underline">ดูรถเข็น</a>
+        </div>
+    </div>
+
     <header class="sticky top-0 bg-white shadow-sm z-50">
         <div class="max-w-7xl mx-auto flex items-center justify-between px-4 md:px-6 py-3">
             <a href="index.html" class="flex items-center space-x-2">
-                <i class="fa-solid fa-leaf text-green-600 text-3xl"></i>
-                <span class="font-bold text-green-600 text-xl">iHAVEPHAI</span>
+                <img src="iHavephai.png" class="w-12" onerror="this.src='https://via.placeholder.com/50x50?text=Logo'">
+                <span class="font-bold text-green-600 text-xl hidden sm:block">iHAVEPHAI</span>
             </a>
             
             <div class="flex-1 max-w-lg mx-8 hidden md:block">
@@ -34,11 +48,11 @@
             </div>
 
             <div class="flex items-center space-x-4">
-                <a href="#" class="text-gray-500 hover:text-green-600 bg-gray-100 p-2 rounded-full w-10 h-10 flex items-center justify-center transition">
+                <button onclick="showToast('ระบบสมาชิกจะเปิดเร็วๆ นี้')" class="text-gray-500 hover:text-green-600 bg-gray-100 p-2 rounded-full w-10 h-10 flex items-center justify-center transition">
                     <i class="fa-regular fa-user"></i>
-                </a>
+                </button>
                 <button onclick="window.location.href='index.html?openCart=true'" class="relative text-gray-500 hover:text-green-600 bg-gray-100 p-2 rounded-full w-10 h-10 flex items-center justify-center transition">
-                    <i class="fa-solid fa-basket-shopping"></i>
+                    <i class="fa-solid fa-cart-shopping text-xl"></i>
                     <span id="cart-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center opacity-0">0</span>
                 </button>
             </div>
@@ -60,17 +74,8 @@
                 <div class="space-y-4">
                     <div class="relative bg-gray-50 rounded-lg overflow-hidden border border-gray-100 aspect-[4/3] group">
                         <img id="main-image" src="" alt="Product Image" class="w-full h-full object-contain mix-blend-multiply p-4 transition duration-300 group-hover:scale-105">
-                        
-                        <button class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-600 rounded-full w-8 h-8 flex items-center justify-center shadow-md">
-                            <i class="fa-solid fa-chevron-left"></i>
-                        </button>
-                        <button class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-600 rounded-full w-8 h-8 flex items-center justify-center shadow-md">
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </button>
                     </div>
-
-                    <div class="flex space-x-2 overflow-x-auto no-scrollbar py-2" id="thumbnail-container">
-                        </div>
+                    <div class="flex space-x-2 overflow-x-auto no-scrollbar py-2" id="thumbnail-container"></div>
                 </div>
 
                 <div class="flex flex-col">
@@ -78,26 +83,26 @@
                         <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded">มีสินค้า</span>
                     </div>
 
-                    <h1 id="product-name" class="text-2xl md:text-3xl font-bold text-gray-800 mb-2 leading-tight">
-                        กำลังโหลดข้อมูล...
-                    </h1>
+                    <h1 id="product-name" class="text-2xl md:text-3xl font-bold text-gray-800 mb-2 leading-tight">กำลังโหลด...</h1>
 
                     <div class="text-sm text-gray-500 mb-6 flex items-center gap-4">
                         <span>แบรนด์: <span class="text-black">iHAVEPHAI</span></span>
                         <span class="text-gray-300">|</span>
                         <span>รหัสสินค้า: <span id="sku-id">SKU-000</span></span>
                         <div class="flex-grow"></div>
-                        <div class="flex gap-2">
-                            <i class="fa-solid fa-share-nodes cursor-pointer hover:text-green-600"></i>
-                            <i class="fa-regular fa-heart cursor-pointer hover:text-red-500"></i>
+                        <div class="flex gap-4">
+                            <button onclick="shareProduct()" class="flex items-center gap-1 hover:text-green-600 transition">
+                                <i class="fa-solid fa-share-nodes"></i> <span class="text-xs">แชร์</span>
+                            </button>
+                            <i class="fa-regular fa-heart cursor-pointer hover:text-red-500 text-xl"></i>
                         </div>
                     </div>
 
                     <hr class="border-gray-100 mb-6">
 
                     <div class="mb-6">
-                        <span id="product-price" class="text-4xl font-bold text-red-600">฿0.00</span>
-                        <span id="product-old-price" class="text-lg text-gray-400 line-through ml-2">฿0.00</span>
+                        <span id="product-price" class="text-4xl font-bold text-red-600">฿0</span>
+                        <span id="product-old-price" class="text-lg text-gray-400 line-through ml-2">฿0</span>
                     </div>
 
                     <div class="flex items-center gap-4 mb-8">
@@ -110,10 +115,10 @@
                     </div>
 
                     <div class="flex gap-4 mb-8">
-                        <button onclick="addToCartCurrent()" class="flex-1 border border-red-600 text-red-600 bg-white py-3 rounded hover:bg-red-50 font-bold transition flex justify-center items-center gap-2">
-                            <i class="fa-solid fa-basket-shopping"></i> เพิ่มในตะกร้า
+                        <button onclick="addToCartCurrent()" class="flex-1 border border-green-600 text-green-600 bg-white py-3 rounded hover:bg-green-50 font-bold transition flex justify-center items-center gap-2">
+                            <i class="fa-solid fa-cart-plus"></i> เพิ่มในรถเข็น
                         </button>
-                        <button onclick="buyNow()" class="flex-1 bg-red-600 text-white py-3 rounded hover:bg-red-700 font-bold shadow-md transition hover:-translate-y-0.5">
+                        <button onclick="buyNow()" class="flex-1 bg-green-600 text-white py-3 rounded hover:bg-green-700 font-bold shadow-md transition hover:-translate-y-0.5">
                             ซื้อเลย
                         </button>
                     </div>
@@ -125,20 +130,14 @@
                             <span class="px-3 py-1 bg-green-50 text-xs rounded-full text-green-700 border border-green-200 font-bold">#iHAVEPHAI</span>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
 
         <div class="mt-8 bg-white rounded-xl shadow-sm p-6 border border-gray-100">
             <h3 class="text-lg font-bold text-gray-800 mb-4 border-l-4 border-green-500 pl-3">รายละเอียดสินค้า</h3>
-            <p class="text-gray-600 leading-relaxed">
-                สินค้าคุณภาพจาก iHAVEPHAI คัดสรรจากธรรมชาติ ผ่านกระบวนการผลิตที่ใส่ใจสิ่งแวดล้อม 
-                เหมาะสำหรับการใช้งานตกแต่งบ้าน สวน หรือนำไปแปรรูปต่อ 
-                <br><br>
-                - วัสดุธรรมชาติ 100%<br>
-                - แข็งแรง ทนทาน ผ่านการอบกันมอด<br>
-                - จัดส่งทั่วไทย รับประกันความเสียหายระหว่างขนส่ง
+            <p class="text-gray-600 leading-relaxed" id="product-desc">
+                สินค้าคุณภาพจาก iHAVEPHAI คัดสรรจากธรรมชาติ ผ่านกระบวนการผลิตที่ใส่ใจสิ่งแวดล้อม แข็งแรง ทนทาน และมีเอกลักษณ์เฉพาะตัว
             </p>
         </div>
     </main>
@@ -148,8 +147,6 @@
     </footer>
 
     <script>
-        // --- 1. ข้อมูลสินค้า (ต้องตรงกับหน้า index.html) ---
-        // ในระบบจริงควรดึงจาก Database แต่ที่นี่เราใช้ตัวแปรเดียวกัน
         const products = [
             { id: 1, name: "ไผ่กิมซุง (กิ่งพันธุ์)", price: 35, category: "พันธุ์ไผ่", image: "https://images.unsplash.com/photo-1533907650686-70576141c030?auto=format&fit=crop&w=500&q=80" },
             { id: 2, name: "เก้าอี้ไม้ไผ่สาน", price: 1290, category: "เฟอร์นิเจอร์", image: "https://images.unsplash.com/photo-1594273577741-6e3e55132d73?auto=format&fit=crop&w=500&q=80" },
@@ -164,12 +161,9 @@
         let currentProduct = null;
         let currentQty = 1;
 
-        // --- 2. โหลดข้อมูลสินค้าตาม URL ID ---
         window.onload = () => {
             const urlParams = new URLSearchParams(window.location.search);
             const productId = parseInt(urlParams.get('id'));
-
-            // ถ้าไม่มี ID ให้ใช้สินค้าตัวแรกเป็นตัวอย่าง
             currentProduct = products.find(p => p.id === productId) || products[0];
             
             renderProductPage(currentProduct);
@@ -177,90 +171,89 @@
         };
 
         function renderProductPage(product) {
-            // Text Info
             document.title = `${product.name} - iHAVEPHAI`;
             document.getElementById('breadcrumb-category').innerText = product.category;
             document.getElementById('breadcrumb-name').innerText = product.name;
             document.getElementById('product-name').innerText = product.name;
             document.getElementById('sku-id').innerText = `SKU-PHAI-${product.id.toString().padStart(4, '0')}`;
-            
-            // Price Formatting
             document.getElementById('product-price').innerText = `฿${product.price.toLocaleString()}`;
-            // สมมติราคาเก่าแพงกว่า 20%
-            const oldPrice = Math.floor(product.price * 1.2);
-            document.getElementById('product-old-price').innerText = `฿${oldPrice.toLocaleString()}`;
-
-            // Image Gallery Setup
-            const mainImg = document.getElementById('main-image');
-            mainImg.src = product.image;
+            document.getElementById('product-old-price').innerText = `฿${Math.floor(product.price * 1.2).toLocaleString()}`;
+            document.getElementById('main-image').src = product.image;
 
             const thumbContainer = document.getElementById('thumbnail-container');
-            // จำลองรูปภาพ Gallery 4 รูป (ใช้รูปเดิมซ้ำๆ เพื่อเป็นตัวอย่าง)
-            const images = [product.image, product.image, product.image, product.image];
-            
+            const images = [product.image, product.image, product.image];
             thumbContainer.innerHTML = images.map((img, idx) => `
-                <div onclick="switchImage('${img}', this)" 
-                     class="cursor-pointer w-20 h-20 rounded-md overflow-hidden bg-gray-50 flex-shrink-0 transition ${idx === 0 ? 'active-thumb' : 'inactive-thumb'}">
+                <div onclick="switchImage('${img}', this)" class="cursor-pointer w-20 h-20 rounded-md overflow-hidden bg-gray-50 flex-shrink-0 border-2 ${idx === 0 ? 'border-green-600 opacity-100' : 'border-transparent opacity-60'}">
                     <img src="${img}" class="w-full h-full object-cover">
                 </div>
             `).join('');
         }
 
         function switchImage(src, el) {
-            // เปลี่ยนรูปใหญ่
             document.getElementById('main-image').src = src;
-            
-            // เปลี่ยน Style กรอบ
             document.querySelectorAll('#thumbnail-container > div').forEach(div => {
-                div.classList.replace('active-thumb', 'inactive-thumb');
+                div.classList.remove('border-green-600', 'opacity-100');
+                div.classList.add('border-transparent', 'opacity-60');
             });
-            el.classList.replace('inactive-thumb', 'active-thumb');
+            el.classList.add('border-green-600', 'opacity-100');
+            el.classList.remove('border-transparent', 'opacity-60');
         }
 
-        // --- 3. Logic จำนวนและการซื้อ ---
         function adjustQty(change) {
             currentQty += change;
             if(currentQty < 1) currentQty = 1;
             document.getElementById('qty-input').value = currentQty;
         }
 
-        // --- 4. Cart Logic with LocalStorage (เชื่อมกับหน้า Index) ---
-        function getCart() {
-            return JSON.parse(localStorage.getItem('iHavePhaiCart')) || [];
-        }
-
-        function saveCart(cart) {
-            localStorage.setItem('iHavePhaiCart', JSON.stringify(cart));
-            updateCartBadge();
-        }
-
+        // --- Cart Logic ---
+        function getCart() { return JSON.parse(localStorage.getItem('iHavePhaiCart')) || []; }
+        
         function updateCartBadge() {
             const cart = getCart();
-            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            const count = cart.reduce((sum, item) => sum + item.qty, 0);
             const badge = document.getElementById('cart-badge');
-            badge.innerText = totalQty;
-            badge.classList.toggle('opacity-0', totalQty === 0);
+            badge.innerText = count;
+            badge.classList.toggle('opacity-0', count === 0);
+        }
+
+        function showToast() {
+            const toast = document.getElementById('cart-toast');
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000); // หายไปหลังจาก 3 วินาที
         }
 
         function addToCartCurrent() {
             let cart = getCart();
-            const existingItem = cart.find(item => item.id === currentProduct.id);
-
-            if (existingItem) {
-                existingItem.qty += currentQty;
-            } else {
-                cart.push({ ...currentProduct, qty: currentQty });
-            }
-
-            saveCart(cart);
-            alert(`✅ เพิ่ม "${currentProduct.name}" จำนวน ${currentQty} ชิ้น ลงตะกร้าแล้ว`);
+            const existing = cart.find(item => item.id === currentProduct.id);
+            if (existing) { existing.qty += currentQty; } 
+            else { cart.push({ ...currentProduct, qty: currentQty }); }
+            localStorage.setItem('iHavePhaiCart', JSON.stringify(cart));
+            updateCartBadge();
+            showToast(); // เรียกใช้ป็อปอัพแทน alert
         }
 
         function buyNow() {
-            addToCartCurrent();
-            window.location.href = 'index.html?openCart=true';
+            const checkoutItem = [{ ...currentProduct, quantity: currentQty }]; // ใช้คีย์ quantity ให้ตรงกับหน้า payment
+            const total = currentProduct.price * currentQty;
+            localStorage.setItem("checkout_cart", JSON.stringify(checkoutItem));
+            localStorage.setItem("checkout_total", total.toLocaleString());
+            window.location.href = "payment.html";
         }
 
+        function shareProduct() {
+            if (navigator.share) {
+                navigator.share({
+                    title: currentProduct.name,
+                    text: `ดูสินค้าชิ้นนี้ที่ iHAVEPHAI: ${currentProduct.name}`,
+                    url: window.location.href,
+                }).catch(console.error);
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                alert("คัดลอกลิงก์ไปยังคลิปบอร์ดแล้ว!");
+            }
+        }
     </script>
 </body>
 </html>
